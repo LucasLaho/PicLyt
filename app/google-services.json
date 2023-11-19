@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "750497881295",
+    "project_id": "piclyt",
+    "storage_bucket": "piclyt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750497881295:android:0f2e8d027c309c1861abba",
+        "android_client_info": {
+          "package_name": "com.example.piclyt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDWLeBdLPDzIy8Kq0AgvtN1l5HK_dnk4o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
