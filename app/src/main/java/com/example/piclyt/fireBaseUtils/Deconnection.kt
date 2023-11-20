@@ -10,6 +10,6 @@ import com.google.firebase.auth.auth
 fun Deconnection(navController: NavController, context: Context, auth: FirebaseAuth) {
     Firebase.auth.signOut() // Déconnexion de Firebase
     navController.navigate("connection") { // Redirection vers la page de connexion
-        popUpTo("homepage") { inclusive = true }
+        popUpTo("Home") { inclusive = true }
     }
 }
