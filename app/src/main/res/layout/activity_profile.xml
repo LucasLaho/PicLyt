@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- activity_profile.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Photo de profil -->
+    <ImageView
+        android:id="@+id/profile_image"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/imagetest"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Nom de l'utilisateur -->
+    <TextView
+        android:id="@+id/username_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nom d'utilisateur"
+        android:textSize="18sp"
+        android:layout_below="@id/profile_image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Informations supplémentaires (par exemple, nombre d'albums, nombre de photos) -->
+    <TextView
+        android:id="@+id/additional_info_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2 albums | 50 photos"
+        android:textSize="14sp"
+        android:layout_below="@id/username_textview"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"/>
+
+    <!-- Bouton pour éditer le profil -->
+    <Button
+        android:id="@+id/edit_profile_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Éditer le profil"
+        android:layout_below="@id/additional_info_textview"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Autres éléments de votre page de profil peuvent être ajoutés ici -->
+
+</RelativeLayout>
