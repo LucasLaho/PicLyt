@@ -23,6 +23,6 @@ fun Connection(navController: NavController, context: Context, auth: FirebaseAut
             else { // En cas d'erreur
                 Toast.makeText(context, "Une erreur est survenue, veuillez réessayer", Toast.LENGTH_SHORT).show()
             }
-            }
+        }
     }
 }

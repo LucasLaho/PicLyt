@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.piclyt.pages.annexe.ModifyProfileScreen
 import com.example.piclyt.pages.homepage.AddScreen
 import com.example.piclyt.pages.homepage.HomeScreen
 import com.example.piclyt.pages.homepage.MediaScreen
@@ -43,6 +44,9 @@ fun PicLytNavHost(context: Context, auth: FirebaseAuth) {
         }
         composable("Profile") {// Vers la page de profil
             ProfileScreen(navController = navController, context, auth, modifier = Modifier.fillMaxSize())
+        }
+        composable("ModifyProfile") {// Vers la page de profil
+            ModifyProfileScreen(navController = navController, context, auth, modifier = Modifier.fillMaxSize())
         }
         composable("Media") {// Vers la page de Média
             MediaScreen(navController = navController, context, auth, modifier = Modifier.fillMaxSize())
