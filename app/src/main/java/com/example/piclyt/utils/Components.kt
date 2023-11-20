@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 
+// ########################## Fonctions de créations de composants de l'application ######################### //
 /* Creation d'un TextField */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

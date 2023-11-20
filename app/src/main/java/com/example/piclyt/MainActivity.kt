@@ -3,6 +3,7 @@ package com.example.piclyt
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import com.example.piclyt.fireBaseUtils.PicLytNavHost
 import com.example.piclyt.ui.theme.PicLytTheme
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth

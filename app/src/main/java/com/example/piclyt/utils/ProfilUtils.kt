@@ -1,6 +1,5 @@
-package com.example.piclyt
+package com.example.piclyt.utils
 
-// ModifierProfilePage.kt
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -13,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.piclyt.ui.theme.PicLytTheme
 
+// ########################## Utilitaires de l'écran de profil ######################### //
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ModifierProfilePage(onBackPressed: () -> Unit) {
@@ -54,10 +54,34 @@ fun ModifierProfileItem(label: String, value: String) {
     }
 }
 
-@Preview
-@Composable
-fun ModifierProfilePagePreview() {
-    PicLytTheme {
-        ModifierProfilePage(onBackPressed = { /* Handle back press */ })
+/*@Composable
+fun EditProfileButton() {
+    val navController = rememberNavController()
+
+    Button(
+        onClick = {
+            navController.navigate("modifierProfilePage") {
+                // Permet de revenir à l'écran précédent lors du retour
+                popUpTo("profilePage") { inclusive = true }
+            }
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        Text("Éditer le profil")
     }
-}
+
+    // Écran de modification de profil
+    NavHost(navController, startDestination = "profilePage") {
+        composable("profilePage") {
+            // Votre écran de profil existant
+            // Utilisez UserProfilePage(userProfile) ici
+        }
+        composable("modifierProfilePage") {
+            ModifierProfilePage(
+                onBackPressed = { navController.popBackStack() }
+            )
+        }
+    }
+}*/

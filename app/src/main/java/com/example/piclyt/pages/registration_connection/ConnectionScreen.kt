@@ -1,4 +1,4 @@
-package com.example.piclyt.connection
+package com.example.piclyt.pages.registration_connection
 
 import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
@@ -23,12 +23,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.piclyt.R
+import com.example.piclyt.fireBaseUtils.Connection
 import com.example.piclyt.ui.theme.PicLytTheme
 import com.example.piclyt.utils.CreateLogo
 import com.example.piclyt.utils.CreateTextField
 import com.google.firebase.auth.FirebaseAuth
 
-/* Ecran de connexion */
+// ########################## Ecran de connexion ######################### //
 @Composable
 fun ConnectionScreen(navController: NavController, context: Context, auth: FirebaseAuth, modifier: Modifier = Modifier) {
     Surface(modifier, color = MaterialTheme.colorScheme.background) {
@@ -68,7 +69,7 @@ fun ConnectionScreen(navController: NavController, context: Context, auth: Fireb
     }
 }
 
-/* Preview de l'ecran de connexion */
+// ########################## Preview de la page de connexion ######################### //
 @Preview(showBackground = true)
 @Composable
 fun ConnectionPreview() {
