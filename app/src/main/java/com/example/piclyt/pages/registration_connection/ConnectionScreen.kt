@@ -25,6 +25,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.piclyt.R
 import com.example.piclyt.fireBaseUtils.Connection
 import com.example.piclyt.ui.theme.PicLytTheme
+import com.example.piclyt.utils.ConnectionHeaderText
 import com.example.piclyt.utils.CreateLogo
 import com.example.piclyt.utils.CreateTextField
 import com.google.firebase.auth.FirebaseAuth
@@ -44,6 +45,7 @@ fun ConnectionScreen(navController: NavController, context: Context, auth: Fireb
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.padding(16.dp)
         ) {
+            ConnectionHeaderText()
             var emailText by rememberSaveable { mutableStateOf("") }
             var passwordText by rememberSaveable { mutableStateOf("") }
             CreateTextField(

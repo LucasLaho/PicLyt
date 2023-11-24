@@ -24,6 +24,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.piclyt.R
 import com.example.piclyt.fireBaseUtils.Registration
+import com.example.piclyt.fireBaseUtils.RegistrationHeaderText
 import com.example.piclyt.ui.theme.PicLytTheme
 import com.example.piclyt.utils.CreateLogo
 import com.example.piclyt.utils.CreateTextField
@@ -44,6 +45,7 @@ fun RegistrationScreen(navController: NavController, context: Context, auth: Fir
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.padding(16.dp)
         ) {
+            RegistrationHeaderText()
             var emailText by rememberSaveable { mutableStateOf("") }
             var passwordText by rememberSaveable { mutableStateOf("") }
             CreateTextField(
