@@ -1,4 +1,4 @@
-package com.example.piclyt.pages.registration_connection
+package com.example.piclyt.pages.connectionPages
 
 import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
@@ -23,18 +23,18 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.piclyt.R
-import com.example.piclyt.fireBaseUtils.Registration
+import com.example.piclyt.fireBaseUtils.Connection
 import com.example.piclyt.ui.theme.PicLytTheme
 import com.example.piclyt.utils.CreateLogo
 import com.example.piclyt.utils.CreateTextField
 import com.example.piclyt.utils.createHeaderText
 import com.google.firebase.auth.FirebaseAuth
 
-// ########################## Ecran d'inscription ######################### //
+// ########################## Ecran de connexion ######################### //
 
-// Fonction principale de la page d'inscription
+// Fonction principale de la page de connexion
 @Composable
-fun RegistrationScreen(navController: NavController, context: Context, auth: FirebaseAuth, modifier: Modifier = Modifier) {
+fun ConnectionScreen(navController: NavController, context: Context, auth: FirebaseAuth, modifier: Modifier = Modifier) {
     Surface(modifier, color = MaterialTheme.colorScheme.background) {
         Box(modifier = Modifier.padding(16.dp), contentAlignment = Alignment.TopCenter) {
             CreateLogo(
@@ -48,32 +48,37 @@ fun RegistrationScreen(navController: NavController, context: Context, auth: Fir
             modifier = Modifier.padding(16.dp)
         ) {
 
-            createHeaderText("Registration") // Affichage du titre de la page
+            createHeaderText("Connexion") /// Affichage du titre de la page
             var emailText by rememberSaveable { mutableStateOf("") }
             var passwordText by rememberSaveable { mutableStateOf("") }
             CreateTextField(
                 label = "Adresse e-mail",
                 onValueChange = { emailText = it },
-            ) // Champ pour saisir l'adresse email
+            ) // Champ de saisie de l'adresse email
             CreateTextField(
                 label = "Mot de passe",
                 onValueChange = { passwordText = it },
-            ) // Champ pour saisir le mot de passe
+            ) // Champ de saisie du mot de passe
             Button(
-                onClick = { Registration(navController, context, auth, emailText, passwordText) }, // Appel de la fonction d'inscription
+                onClick = { Connection(navController, context, auth, emailText, passwordText) }, // Appel de la fonction de connexion
                 modifier = Modifier.padding(top = 8.dp)
             ) {
-                Text("Inscription")
-            } // Bouton permettant de s'inscrire
+                Text("Connexion")
+            } // Bouton de connexion
         }
+        Box(modifier = Modifier.padding(16.dp), contentAlignment = Alignment.BottomCenter) {
+            Button(onClick = { navController.navigate("registration") }) {
+                Text("Pas encore de compte ? Inscris-toi !")
+            }
+        } // Bouton pour se rédiriger vers la page de connexion
     }
 }
 
-// ########################## Preview de la page d'inscription ######################### //
+// ########################## Preview de la page de connexion ######################### //
 @Preview(showBackground = true)
 @Composable
-fun RegistrationPreview() {
+fun ConnectionPreview() {
     PicLytTheme {
-        RegistrationScreen(navController = rememberNavController(), LocalContext.current, FirebaseAuth.getInstance())
+        ConnectionScreen(navController = rememberNavController(), LocalContext.current, FirebaseAuth.getInstance())
     }
 }

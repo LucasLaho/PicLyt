@@ -1,14 +1,11 @@
-package com.example.piclyt.pages.homepage
+package com.example.piclyt.pages.homePages
 
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.piclyt.R
-import com.example.piclyt.ui.theme.PicLytTheme
+import com.example.piclyt.utils.ImageViewModel
 import com.example.piclyt.utils.UserProfile
 import com.example.piclyt.utils.UserProfilePage
 import com.example.piclyt.utils.createBottomNavigation
@@ -18,8 +15,8 @@ import com.google.firebase.auth.FirebaseAuth
 
 // Fonction principale de la page de profil regroupant toutes les infos d'une page de profil quelconque
 @Composable
-fun ProfileScreen(navController: NavController, context: Context, auth: FirebaseAuth, modifier: Modifier = Modifier) {
-    createBottomNavigation(navController, context, modifier, true) // Affichage de la barre de navigation
+fun ProfileScreen(navController: NavController, context: Context, auth: FirebaseAuth, modifier: Modifier = Modifier, viewModel: ImageViewModel) {
+    createBottomNavigation(navController, context, modifier, true, viewModel) // Affichage de la barre de navigation
 
     UserProfilePage(
         userProfile = UserProfile(
@@ -31,13 +28,4 @@ fun ProfileScreen(navController: NavController, context: Context, auth: Firebase
         ),
         navController, context, auth
     ) // Affichage des composants de la page de profil (Photo, Bouton de déconnexion, etc...). PAS TERMINÉ !!
-}
-
-// ########################## Preview de l'ecran de profil ################ //
-@Preview(showBackground = true)
-@Composable
-fun ProfileScreenPreview() {
-    PicLytTheme {
-        ProfileScreen(navController = rememberNavController(), LocalContext.current, FirebaseAuth.getInstance())
-    }
 }

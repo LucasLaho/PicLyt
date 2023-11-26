@@ -1,5 +1,6 @@
 package com.example.piclyt.utils
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -14,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import android.content.Context
-import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -31,7 +32,6 @@ import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -82,9 +82,9 @@ fun createHeaderText(text: String){
         textAlign = TextAlign.Center,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 50.dp, bottom = 50.dp),
+            .background(Color.Transparent)
+            .padding(5.dp),
         fontWeight = FontWeight.ExtraBold,
-        fontSize = 50.sp,
         fontFamily = FontFamily.Serif,
         color = Color.Gray
     )
@@ -103,9 +103,10 @@ data class BottomNavigationItem (
 )
 
 // Fonction de création du bottom Navigation
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun createBottomNavigation(navController: NavController, context: Context,  modifier: Modifier = Modifier, isSelected:Boolean) {
+fun createBottomNavigation(navController: NavController, context: Context, modifier: Modifier = Modifier, isSelected:Boolean, viewModel: ImageViewModel) {
 
     // Liste des éléments de la navigation
     val items = listOf(
@@ -122,7 +123,7 @@ fun createBottomNavigation(navController: NavController, context: Context,  modi
             selectedIcon = Icons.Filled.Create,
             unselectedIcon = Icons.Outlined.Create,
             hasNews = false,
-            badgeCount = 5
+            badgeCount = 0
         ),
         BottomNavigationItem (
             title = "Add",
@@ -150,10 +151,7 @@ fun createBottomNavigation(navController: NavController, context: Context,  modi
     val currentPosition = navController.currentDestination?.route.toString() // Permet de récupérer le nom de la page où on se trouve
 
     ///////////// Création de la barre de navigation ///////////////
-    Surface(
-        modifier = Modifier.fillMaxWidth(),
-        color = MaterialTheme.colorScheme.background
-    ) {
+    Surface {
         Scaffold (
             bottomBar = {
                 NavigationBar {
@@ -170,7 +168,9 @@ fun createBottomNavigation(navController: NavController, context: Context,  modi
                                 BadgedBox(
                                     badge = {
                                         if (item.badgeCount != null) // Test de l'affichage du nombre dans la bulle possible ou pas
-                                            Badge { Text(text = item.badgeCount.toString()) }
+                                            Badge {
+                                                    Text(text = viewModel.selectedImageUris.size.toString())
+                                            }
                                         else if (item.hasNews)
                                             Badge {}
                                     }
@@ -188,6 +188,7 @@ fun createBottomNavigation(navController: NavController, context: Context,  modi
         ){ /* Vide  */ }
     }
 }
+
 
 
 

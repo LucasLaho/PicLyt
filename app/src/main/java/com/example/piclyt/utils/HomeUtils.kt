@@ -25,7 +25,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -33,22 +32,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.piclyt.R
-import com.google.firebase.auth.FirebaseAuth
 
 // ############################# Liste des fonctions de la page d'accueil ########################## //
 
 // Fonction pour afficher les albums photo
 @Composable
-fun AlbumSection(navController: NavController, auth: FirebaseAuth) {
-    val context = LocalContext.current
-
+fun AlbumSection(navController: NavController) {
     // Récupérer la liste des albums depuis Firebase (Ne le fais pas actuellement. A DEV !!!)
     val albums = remember {
         listOf(
             Album("Vacances", R.drawable.ic_launcher_background),
-            Album("Famille", R.drawable.ic_launcher_background),
-            Album("Mariage", R.drawable.ic_launcher_background)
-        )
+            Album("Famille", R.drawable.ic_launcher_foreground),
+            Album("Mariage", R.drawable.ic_launcher_background),
+            Album("Fêtes", R.drawable.ic_launcher_foreground),
+            )
     }
 
     LazyColumn(
@@ -58,8 +55,7 @@ fun AlbumSection(navController: NavController, auth: FirebaseAuth) {
     ) {
         items(albums) { album ->
             AlbumItem(album = album, onClick = {
-                // Naviguer vers l'écran de détails de l'album
-                navController.navigate("album/${album.name}")
+                Unit // Code pour lorsque on clique sur un album
             })
         }
     }
