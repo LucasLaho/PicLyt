@@ -1,40 +1,43 @@
 package com.example.piclyt.utils
 
 import android.content.Context
-import android.text.TextUtils
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Button
-import androidx.compose.material3.LocalTextStyle
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.*
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.piclyt.fireBaseUtils.Deconnection
 import com.google.firebase.auth.FirebaseAuth
 
-// ############################# Listes des fonctions de tests ########################## //
+// ########################## Utilitaires de l'écran de profil ######################### //
 data class UserProfile(
     val username: String,
     val albumCount: Int,
@@ -43,6 +46,7 @@ data class UserProfile(
     val profileImage: Int // Replace with your actual image resource or URL
 )
 
+// Fonction affichant tous les composants sur l'écran de profil ! Composants crées par les fonctions plus bas
 @Composable
 fun UserProfilePage(userProfile: UserProfile, navController: NavController, context: Context, auth: FirebaseAuth) {
     var isEditing by remember { mutableStateOf(false) }
@@ -95,11 +99,12 @@ fun UserProfilePage(userProfile: UserProfile, navController: NavController, cont
         }
 
         item {
-            DeconnexionButton(navController, context, auth, onClick = { isEditing = true })
+            DeconnexionButton(navController, onClick = { isEditing = true })
         }
     }
 }
 
+// Fonction affichant la photo de profil de l'utilisateur. (NE LE FAIS PAS ENCORE)
 @Composable
 fun ProfilImage(
     painter: Painter,
@@ -114,6 +119,7 @@ fun ProfilImage(
     )
 }
 
+// Fonction pour afficher les statistiques de l'utilisateur
 @Composable
 fun ProfileStats(userProfile: UserProfile) {
     Column(
@@ -129,6 +135,7 @@ fun ProfileStats(userProfile: UserProfile) {
     }
 }
 
+// Fonction pour gérer la police d'écriture de la page de profil
 @Composable
 fun ProfileStatItem(label: String, value: Int) {
     Row(
@@ -149,6 +156,7 @@ fun ProfileStatItem(label: String, value: Int) {
     }
 }
 
+// Fonction de création d'un bouton pour se rédiriger la page de modification de profil
 @Composable
 fun EditProfileButton(navController: NavController, onClick: () -> Unit) {
     Button(
@@ -161,10 +169,11 @@ fun EditProfileButton(navController: NavController, onClick: () -> Unit) {
     }
 }
 
+// Fonction pour afficher le bouton de déconnexion pour quitter l'application
 @Composable
-fun DeconnexionButton(navController: NavController, context: Context, auth: FirebaseAuth, onClick: () -> Unit) {
+fun DeconnexionButton(navController: NavController, onClick: () -> Unit) {
     Button(
-        onClick = { Deconnection(navController, context, auth) },
+        onClick = { Deconnection(navController) },
         modifier = Modifier
             .fillMaxWidth()
             .padding(5.dp)
@@ -173,6 +182,7 @@ fun DeconnexionButton(navController: NavController, context: Context, auth: Fire
     }
 }
 
+// Fonction pour afficher le bouton de navigation vers la page de paramètres
 @Composable
 fun navigateToSettings(navController: NavController, onClick: () -> Unit) {
     Button(
@@ -186,17 +196,80 @@ fun navigateToSettings(navController: NavController, onClick: () -> Unit) {
     }
 }
 
-fun testDataFields(context: Context, emailText: String, passwordText: String): Boolean{
+// ########################## Utilitaires de l'écran de modification de profil ######################### //
+// Utilité : Cette page servira à l'utilisateur de modification de sa photo de profil, etc...
 
-    if(TextUtils.isEmpty(emailText)) { // Vérification que le champ email n'est pas vide
-        Toast.makeText(context,"Veuillez renseigner votre adresse e-mail", Toast.LENGTH_SHORT).show()
-        return false
+// Fonction pour modifier le profil de l'utilisateur. PAS UTILISÉ ENCORE. TO DO pour Yohan
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ModifierProfilePage(onBackPressed: () -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+            .padding(16.dp)
+    ) {
+        TopAppBar(
+            title = { Text("Modifier le profil") },
+            navigationIcon = {
+                IconButton(onClick = onBackPressed) {
+                    Icon(Icons.Default.ArrowBack, contentDescription = null)
+                }
+            }
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        ModifierProfileItem(label = "Adresse e-mail", value = "utilisateur@email.com")
+        ModifierProfileItem(label = "Nom d'utilisateur", value = "NomUtilisateur")
     }
-
-    else if(TextUtils.isEmpty(passwordText)) { // Vérification que le champ mot de passe n'est pas vide
-        Toast.makeText(context, "Veuillez renseigner votre mot de passe", Toast.LENGTH_SHORT).show()
-        return false
-    }
-
-    return true // Retour d'une validation pour passer à la navigation
 }
+
+// ?????? TO DO pour Yohan
+@Composable
+fun ModifierProfileItem(label: String, value: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+    ) {
+        Spacer(modifier = Modifier.width(8.dp))
+        Column {
+            Text(text = label, style = MaterialTheme.typography.bodyLarge)
+            Text(text = value, style = MaterialTheme.typography.bodyLarge)
+        }
+    }
+}
+
+////////////////////// Fonctions buggés. TO DO pour YOHAN /////////////////////////////////
+/*@Composable
+fun EditProfileButton() {
+    val navController = rememberNavController()
+
+    Button(
+        onClick = {
+            navController.navigate("modifierProfilePage") {
+                // Permet de revenir à l'écran précédent lors du retour
+                popUpTo("profilePage") { inclusive = true }
+            }
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        Text("Éditer le profil")
+    }
+
+    // Écran de modification de profil
+    NavHost(navController, startDestination = "profilePage") {
+        composable("profilePage") {
+            // Votre écran de profil existant
+            // Utilisez UserProfilePage(userProfile) ici
+        }
+        composable("modifierProfilePage") {
+            com.example.piclyt.utils.ModifierProfilePage(
+                onBackPressed = { navController.popBackStack() }
+            )
+        }
+    }
+}*/

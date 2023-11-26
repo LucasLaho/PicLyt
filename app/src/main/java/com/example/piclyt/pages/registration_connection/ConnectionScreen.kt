@@ -25,12 +25,14 @@ import androidx.navigation.compose.rememberNavController
 import com.example.piclyt.R
 import com.example.piclyt.fireBaseUtils.Connection
 import com.example.piclyt.ui.theme.PicLytTheme
-import com.example.piclyt.utils.ConnectionHeaderText
 import com.example.piclyt.utils.CreateLogo
 import com.example.piclyt.utils.CreateTextField
+import com.example.piclyt.utils.createHeaderText
 import com.google.firebase.auth.FirebaseAuth
 
 // ########################## Ecran de connexion ######################### //
+
+// Fonction principale de la page de connexion
 @Composable
 fun ConnectionScreen(navController: NavController, context: Context, auth: FirebaseAuth, modifier: Modifier = Modifier) {
     Surface(modifier, color = MaterialTheme.colorScheme.background) {
@@ -45,29 +47,30 @@ fun ConnectionScreen(navController: NavController, context: Context, auth: Fireb
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.padding(16.dp)
         ) {
-            ConnectionHeaderText()
+
+            createHeaderText("Connexion") /// Affichage du titre de la page
             var emailText by rememberSaveable { mutableStateOf("") }
             var passwordText by rememberSaveable { mutableStateOf("") }
             CreateTextField(
                 label = "Adresse e-mail",
                 onValueChange = { emailText = it },
-            )
+            ) // Champ de saisie de l'adresse email
             CreateTextField(
                 label = "Mot de passe",
                 onValueChange = { passwordText = it },
-            )
+            ) // Champ de saisie du mot de passe
             Button(
-                onClick = { Connection(navController, context, auth, emailText, passwordText) },
+                onClick = { Connection(navController, context, auth, emailText, passwordText) }, // Appel de la fonction de connexion
                 modifier = Modifier.padding(top = 8.dp)
             ) {
                 Text("Connexion")
-            }
+            } // Bouton de connexion
         }
         Box(modifier = Modifier.padding(16.dp), contentAlignment = Alignment.BottomCenter) {
             Button(onClick = { navController.navigate("registration") }) {
                 Text("Pas encore de compte ? Inscris-toi !")
             }
-        }
+        } // Bouton pour se rédiriger vers la page de connexion
     }
 }
 

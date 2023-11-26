@@ -10,18 +10,20 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.piclyt.ui.theme.PicLytTheme
 import com.example.piclyt.utils.ProfileCard
-import com.example.piclyt.utils.SettingsHeaderText
 import com.example.piclyt.utils.createBottomNavigation
+import com.example.piclyt.utils.createHeaderText
 import com.google.firebase.auth.FirebaseAuth
 
 // ########################## Ecran de paramètres ######################### //
+
+// Fonction principale de l'écran de paramètres
 @Composable
 fun SettingsScreen(navController: NavController, context: Context, auth: FirebaseAuth, modifier: Modifier = Modifier) {
-    createBottomNavigation(navController, context, modifier, true) // Affichage de la navigation
+    createBottomNavigation(navController, context, modifier, true) // Affichage de la barre de navigation
 
     Column {
-        SettingsHeaderText()
-        ProfileCard()
+        createHeaderText("Settings") // Affichage du titre de la page
+        ProfileCard() // Décoration temporaire
     }
 }
 

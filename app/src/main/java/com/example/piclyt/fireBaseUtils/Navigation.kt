@@ -19,6 +19,8 @@ import com.example.piclyt.pages.homepage.ShopScreen
 import com.google.firebase.auth.FirebaseAuth
 
 // ############################# Utilitaires pour la fonctionnalité de navigation ########################## //
+
+// Fonction permettant de naviguer vers toutes les pages de l'application
 @Composable
 fun PicLytNavHost(context: Context, auth: FirebaseAuth) {
 
@@ -39,7 +41,7 @@ fun PicLytNavHost(context: Context, auth: FirebaseAuth) {
         composable("registration") {// Vers la page d'inscription
             RegistrationScreen(navController = navController, context, auth, modifier = Modifier.fillMaxSize())
         }
-        composable("Home") {// Vers la page d'accueil
+        composable("Home") {// Vers la page d'accueil/liste des albums
             HomeScreen(navController = navController, context, auth, modifier = Modifier.fillMaxSize())
         }
         composable("Profile") {// Vers la page de profil

@@ -24,13 +24,15 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.piclyt.R
 import com.example.piclyt.fireBaseUtils.Registration
-import com.example.piclyt.fireBaseUtils.RegistrationHeaderText
 import com.example.piclyt.ui.theme.PicLytTheme
 import com.example.piclyt.utils.CreateLogo
 import com.example.piclyt.utils.CreateTextField
+import com.example.piclyt.utils.createHeaderText
 import com.google.firebase.auth.FirebaseAuth
 
 // ########################## Ecran d'inscription ######################### //
+
+// Fonction principale de la page d'inscription
 @Composable
 fun RegistrationScreen(navController: NavController, context: Context, auth: FirebaseAuth, modifier: Modifier = Modifier) {
     Surface(modifier, color = MaterialTheme.colorScheme.background) {
@@ -45,23 +47,24 @@ fun RegistrationScreen(navController: NavController, context: Context, auth: Fir
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.padding(16.dp)
         ) {
-            RegistrationHeaderText()
+
+            createHeaderText("Registration") // Affichage du titre de la page
             var emailText by rememberSaveable { mutableStateOf("") }
             var passwordText by rememberSaveable { mutableStateOf("") }
             CreateTextField(
                 label = "Adresse e-mail",
                 onValueChange = { emailText = it },
-            )
+            ) // Champ pour saisir l'adresse email
             CreateTextField(
                 label = "Mot de passe",
                 onValueChange = { passwordText = it },
-            )
+            ) // Champ pour saisir le mot de passe
             Button(
-                onClick = { Registration(navController, context, auth, emailText, passwordText) },
+                onClick = { Registration(navController, context, auth, emailText, passwordText) }, // Appel de la fonction d'inscription
                 modifier = Modifier.padding(top = 8.dp)
             ) {
                 Text("Inscription")
-            }
+            } // Bouton permettant de s'inscrire
         }
     }
 }

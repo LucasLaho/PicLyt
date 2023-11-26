@@ -15,26 +15,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.piclyt.R
 
-@Composable
-fun SettingsHeaderText(){
-    Text (
-        text = "Settings",
-        textAlign = TextAlign.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 30.dp, bottom = 10.dp),
-        fontWeight = FontWeight.ExtraBold,
-        fontSize = 16.sp,
-        fontFamily = FontFamily.Serif,
-        color = Color.Gray
-    )
-}
+// ########################## Utilitaires de l'écran de paramètres ######################### //
 
+// Fonction de pure décoration de la page. Aucune utilité
 @Composable
 fun ProfileCard(){
     Card (modifier = Modifier

@@ -29,19 +29,20 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.piclyt.R
 import com.google.firebase.auth.FirebaseAuth
 
-// Fonction pour afficher l'interface de l'album photo
+// ############################# Liste des fonctions de la page d'accueil ########################## //
+
+// Fonction pour afficher les albums photo
 @Composable
 fun AlbumSection(navController: NavController, auth: FirebaseAuth) {
     val context = LocalContext.current
 
-    // Récupérer la liste des albums depuis Firebase. A dev
+    // Récupérer la liste des albums depuis Firebase (Ne le fais pas actuellement. A DEV !!!)
     val albums = remember {
         listOf(
             Album("Vacances", R.drawable.ic_launcher_background),
@@ -64,7 +65,7 @@ fun AlbumSection(navController: NavController, auth: FirebaseAuth) {
     }
 }
 
-// Composable pour représenter un album
+// Composant pour représenter un album
 @Composable
 fun AlbumItem(album: Album, onClick: () -> Unit) {
     Box(
@@ -103,24 +104,10 @@ fun AlbumItem(album: Album, onClick: () -> Unit) {
 // Modèle de données pour un album
 data class Album(val name: String, val imageResource: Int)
 
-@Composable
-fun HomeHeaderText(){
-    Text (
-        text = "Albums",
-        textAlign = TextAlign.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 50.dp, bottom = 50.dp),
-        fontWeight = FontWeight.ExtraBold,
-        fontSize = 50.sp,
-        fontFamily = FontFamily.Serif,
-        color = Color.Gray
-    )
-}
-
+// Fonction pour afficher un message de bienvenu
 @Composable
 fun GreetingSection(
-    name: String = "Thierry"
+    name: String // Represente le nom de l'utilisateur connecté
 ) {
 
     Row(
