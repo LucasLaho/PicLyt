@@ -111,11 +111,11 @@ fun createBottomNavigation(navController: NavController, context: Context, modif
     // Liste des éléments de la navigation
     val items = listOf(
         BottomNavigationItem (
-            title = "Shop",
+            title = "Home",
             sublist = listOf(""),
-            selectedIcon = Icons.Filled.ShoppingCart,
-            unselectedIcon = Icons.Outlined.ShoppingCart,
-            hasNews = true,
+            selectedIcon = Icons.Filled.Home,
+            unselectedIcon = Icons.Outlined.Home,
+            hasNews = false,
         ),
         BottomNavigationItem (
             title = "Media",
@@ -133,11 +133,11 @@ fun createBottomNavigation(navController: NavController, context: Context, modif
             hasNews = false,
         ),
         BottomNavigationItem (
-            title = "Home",
+            title = "Shop",
             sublist = listOf(""),
-            selectedIcon = Icons.Filled.Home,
-            unselectedIcon = Icons.Outlined.Home,
-            hasNews = false,
+            selectedIcon = Icons.Filled.ShoppingCart,
+            unselectedIcon = Icons.Outlined.ShoppingCart,
+            hasNews = true,
         ),
         BottomNavigationItem (
             title = "Profile",

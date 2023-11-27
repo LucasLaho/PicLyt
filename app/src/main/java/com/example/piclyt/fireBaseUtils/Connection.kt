@@ -18,12 +18,12 @@ fun Connection(navController: NavController, context: Context, auth: FirebaseAut
 
                     task -> if (task.isSuccessful) { // En cas de réussite, redirection vers la page d'accueil
                 navController.navigate("Home") {
-                    popUpTo("connection") { inclusive = true }
+                    popUpTo("connection") { inclusive = true } // Suppression de l'historique de navigation
                 }
             }
 
             else { // En cas d'erreur, on affiche une pop-up
-                Toast.makeText(context, "Echec de la connexion ! Veuillez réessayer", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Échec de la connexion ! Veuillez réessayer", Toast.LENGTH_SHORT).show()
             }
         }
     }
