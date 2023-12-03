@@ -26,6 +26,7 @@ import com.example.piclyt.R
 import com.example.piclyt.fireBaseUtils.Connection
 import com.example.piclyt.ui.theme.PicLytTheme
 import com.example.piclyt.utils.CreateLogo
+import com.example.piclyt.utils.CreatePasswordTextField
 import com.example.piclyt.utils.CreateTextField
 import com.example.piclyt.utils.createHeaderText
 import com.google.firebase.auth.FirebaseAuth
@@ -55,7 +56,7 @@ fun ConnectionScreen(navController: NavController, context: Context, auth: Fireb
                 label = "Adresse e-mail",
                 onValueChange = { emailText = it },
             ) // Champ de saisie de l'adresse email
-            CreateTextField(
+            CreatePasswordTextField(
                 label = "Mot de passe",
                 onValueChange = { passwordText = it },
             ) // Champ de saisie du mot de passe

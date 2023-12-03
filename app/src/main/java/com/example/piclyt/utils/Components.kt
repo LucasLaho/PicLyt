@@ -18,12 +18,15 @@ import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Create
 import androidx.compose.material.icons.outlined.Home
@@ -32,6 +35,7 @@ import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -40,6 +44,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -59,7 +66,47 @@ fun CreateTextField(label: String, onValueChange: (String) -> Unit) {
             text = it
             onValueChange(it)
         },
+        singleLine = true,
         label = { Text(label) },
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun CreatePasswordTextField(label: String, onValueChange: (String) -> Unit) {
+    var text by rememberSaveable { mutableStateOf("") }
+    var showText by rememberSaveable { mutableStateOf(value = false) }
+    OutlinedTextField(
+        value = text,
+        onValueChange = {
+            text = it
+            onValueChange(it)
+        },
+        singleLine = true,
+        label = { Text(label) },
+        visualTransformation = if (showText) {
+            VisualTransformation.None
+        } else {
+            PasswordVisualTransformation()
+        },
+        trailingIcon = {
+            if (showText) {
+                IconButton(onClick = { showText = false }) {
+                    Icon(
+                        imageVector = Icons.Filled.Visibility,
+                        contentDescription = "hide_text"
+                    )
+                }
+            } else {
+                IconButton(onClick = { showText = true }) {
+                    Icon(
+                        imageVector = Icons.Filled.VisibilityOff,
+                        contentDescription = "hide_text"
+                    )
+                }
+            }
+        },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
     )
 }
 
@@ -82,11 +129,9 @@ fun createHeaderText(text: String){
         textAlign = TextAlign.Center,
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.Transparent)
             .padding(5.dp),
+        fontSize = 25.sp,
         fontWeight = FontWeight.ExtraBold,
-        fontFamily = FontFamily.Serif,
-        color = Color.Gray
     )
 }
 

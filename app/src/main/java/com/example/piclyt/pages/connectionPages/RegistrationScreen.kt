@@ -26,6 +26,7 @@ import com.example.piclyt.R
 import com.example.piclyt.fireBaseUtils.Registration
 import com.example.piclyt.ui.theme.PicLytTheme
 import com.example.piclyt.utils.CreateLogo
+import com.example.piclyt.utils.CreatePasswordTextField
 import com.example.piclyt.utils.CreateTextField
 import com.example.piclyt.utils.createHeaderText
 import com.google.firebase.auth.FirebaseAuth
@@ -48,14 +49,14 @@ fun RegistrationScreen(navController: NavController, context: Context, auth: Fir
             modifier = Modifier.padding(16.dp)
         ) {
 
-            createHeaderText("Registration") // Affichage du titre de la page
+            createHeaderText("Inscription") // Affichage du titre de la page
             var emailText by rememberSaveable { mutableStateOf("") }
             var passwordText by rememberSaveable { mutableStateOf("") }
             CreateTextField(
                 label = "Adresse e-mail",
                 onValueChange = { emailText = it },
             ) // Champ pour saisir l'adresse email
-            CreateTextField(
+            CreatePasswordTextField(
                 label = "Mot de passe",
                 onValueChange = { passwordText = it },
             ) // Champ pour saisir le mot de passe

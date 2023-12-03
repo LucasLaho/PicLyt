@@ -21,9 +21,11 @@ fun Registration(navController: NavController, context: Context, auth: FirebaseA
                         popUpTo("connection") { inclusive = true }
                     }
                 }
-
+                else if (passwordText.length<6) {
+                    Toast.makeText(context, "Échec de l'inscription ! Mot de passe de 6 caractères minimum", Toast.LENGTH_SHORT).show()
+                }
                 else { // En cas d'erreur, affichage d'une pop-up
-                    Toast.makeText(context, "Echec de l'inscription ! Veuillez réessayer", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Échec de l'inscription ! Veuillez réessayer", Toast.LENGTH_SHORT).show()
                 }
         }
     }
