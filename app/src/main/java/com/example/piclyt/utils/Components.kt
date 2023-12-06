@@ -31,14 +31,14 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.Group
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.Create
+import androidx.compose.material.icons.outlined.Group
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.ShoppingCart
@@ -178,10 +178,10 @@ fun createBottomNavigation(navController: NavController, context: Context, modif
             hasNews = false,
         ),
         BottomNavigationItem (
-            title = "Media",
+            title = "Friends",
             sublist = listOf(""),
-            selectedIcon = Icons.Filled.Create,
-            unselectedIcon = Icons.Outlined.Create,
+            selectedIcon = Icons.Filled.Group,
+            unselectedIcon = Icons.Outlined.Group,
             hasNews = false,
             badgeCount = 0
         ),

@@ -17,13 +17,12 @@ import com.example.piclyt.utils.PickImageFromGallery
 import com.example.piclyt.utils.createBottomNavigation
 import com.example.piclyt.utils.createHeaderText
 
-// ########################## Ecran de Média ######################### //
-// Utilité : Ici, on pourra ajouter des images et vidéos depuis sa galerie que l'on va stocker dans l'application.
-// A partir de cette liste de medias, on pourra créer des albums dans la page AddScreen et on pourra faire des stats pour le profil
+// ########################## Ecran d'Amis ######################### //
+// Utilité : Ici, on pourra voir les albums publics de nos amis.
 
-// Fonction principale de l'écran de Média où on retrouvera les photos et vidéos de l'utilisateur depuis sa galerie
+// Fonction principale de l'écran d'Amis où on retrouvera les albums publics de nos amis
 @Composable
-fun MediaScreen(navController: NavController, context: Context, authManager: AuthManager, modifier: Modifier = Modifier, viewModel: MediaModel) {
+fun FriendsScreen(navController: NavController, context: Context, authManager: AuthManager, modifier: Modifier = Modifier, viewModel: MediaModel) {
     createBottomNavigation(navController, context, modifier, true, viewModel) // Affichage de la barre de navigation
 
     Box(
@@ -36,7 +35,7 @@ fun MediaScreen(navController: NavController, context: Context, authManager: Aut
                 .align(Alignment.TopStart)
                 .fillMaxWidth()
         ) {
-            createHeaderText("Média") // Affichage du titre
+            createHeaderText("Amis") // Affichage du titre
             PickImageFromGallery(viewModel)  // Bouton d'ajout d'une image depuis la galerie
         }
     }

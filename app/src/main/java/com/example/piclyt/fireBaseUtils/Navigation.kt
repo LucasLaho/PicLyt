@@ -11,12 +11,12 @@ import com.example.piclyt.data.MediaModel
 import com.example.piclyt.pages.annexePages.ModifyProfileScreen
 import com.example.piclyt.pages.homePages.AddScreen
 import com.example.piclyt.pages.homePages.HomeScreen
-import com.example.piclyt.pages.homePages.MediaScreen
 import com.example.piclyt.pages.connectionPages.ConnectionScreen
 import com.example.piclyt.pages.connectionPages.RegistrationScreen
 import com.example.piclyt.pages.homePages.ProfileScreen
 import com.example.piclyt.pages.annexePages.SettingsScreen
 import com.example.piclyt.pages.connectionPages.UsernameScreen
+import com.example.piclyt.pages.homePages.FriendsScreen
 import com.example.piclyt.pages.homePages.ShopScreen
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -67,8 +67,8 @@ fun PicLytNavHost(context: ComponentActivity) {
         composable("ModifyProfile") {// Vers la page de profil
             ModifyProfileScreen(navController = navController, context.applicationContext, authManager, modifier = Modifier.fillMaxSize(), listMedias)
         }
-        composable("Media") {// Vers la page de Média
-            MediaScreen(navController = navController, context.applicationContext, authManager, modifier = Modifier.fillMaxSize(), listMedias)
+        composable("Friends") {// Vers la page d'Amis
+            FriendsScreen(navController = navController, context.applicationContext, authManager, modifier = Modifier.fillMaxSize(), listMedias)
         }
         composable("Add") {// Vers la page d'ajout d'album
             AddScreen(navController = navController, context.applicationContext, authManager, modifier = Modifier.fillMaxSize(), listMedias)
