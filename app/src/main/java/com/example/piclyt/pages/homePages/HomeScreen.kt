@@ -11,18 +11,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.piclyt.data.MediaModel
+import com.example.piclyt.fireBaseUtils.AuthManager
 import com.example.piclyt.utils.AlbumSection
 import com.example.piclyt.utils.GreetingSection
-import com.example.piclyt.utils.ImageViewModel
 import com.example.piclyt.utils.createBottomNavigation
 import com.example.piclyt.utils.createHeaderText
-import com.google.firebase.auth.FirebaseAuth
 
 // ########################## Ecran d'accueil ######################### //
 
 // Fonction principale de l'écran d'accueil
 @Composable
-fun HomeScreen(navController: NavController, context: Context, auth: FirebaseAuth, modifier: Modifier = Modifier, viewModel: ImageViewModel) {
+fun HomeScreen(navController: NavController, context: Context, authManager: AuthManager, modifier: Modifier = Modifier, viewModel: MediaModel) {
     createBottomNavigation(navController, context, modifier, true, viewModel) // Affichage de la barre de navigation
 
     Box(

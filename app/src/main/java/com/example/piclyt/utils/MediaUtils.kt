@@ -15,12 +15,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.AsyncImage
+import com.example.piclyt.data.MediaModel
 
 // ############################# Liste des fonctions de la page d'ajout ########################## //
 
 // Fonctionnalité d'ajout de photo à partir du portable (NE FONCTIONNE PAS correctement !!!)
 @Composable
-fun PickImageFromGallery(viewModel: ImageViewModel) {
+fun PickImageFromGallery(viewModel: MediaModel) {
 
     val multiplePhotoPickerLauncher = rememberLauncherForActivityResult (
         contract = ActivityResultContracts.PickMultipleVisualMedia(),

@@ -15,10 +15,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import android.content.Context
-import androidx.compose.foundation.background
+import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Create
@@ -40,9 +50,10 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -50,6 +61,9 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.piclyt.R
+import com.example.piclyt.data.MediaModel
+import com.example.piclyt.fireBaseUtils.AuthManager
 
 // Utilité : Ici, on retrouve toutes les fonctions de créations de composants pour toutes les pages de l'application !
 
@@ -151,7 +165,7 @@ data class BottomNavigationItem (
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun createBottomNavigation(navController: NavController, context: Context, modifier: Modifier = Modifier, isSelected:Boolean, viewModel: ImageViewModel) {
+fun createBottomNavigation(navController: NavController, context: Context, modifier: Modifier = Modifier, isSelected:Boolean, viewModel: MediaModel) {
 
     // Liste des éléments de la navigation
     val items = listOf(
@@ -231,6 +245,55 @@ fun createBottomNavigation(navController: NavController, context: Context, modif
                 }
             }
         ){ /* Vide  */ }
+    }
+}
+
+@Composable
+fun createGoogleSignInButton(
+    context: Context,
+    authManager: AuthManager,
+    navController: NavController
+) {
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Card(
+            modifier = Modifier
+                .padding(start = 30.dp, end = 30.dp)
+                .height(55.dp)
+                .fillMaxWidth()
+                .clickable {
+                    if(authManager.signIn()){
+                        navController.navigate("Home")
+                        Toast.makeText(context, "Bouton appuyé", Toast.LENGTH_SHORT).show()
+                    }
+                },
+            shape = RoundedCornerShape(10.dp),
+            border = BorderStroke(width = 1.5.dp, color = Color.Black),
+            elevation = 5.dp
+        ) {
+            Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
+                Image(
+                    modifier = Modifier
+                        .padding(start = 15.dp)
+                        .size(32.dp)
+                        .padding(0.dp)
+                        .align(Alignment.CenterVertically),
+                    painter = painterResource(id = R.drawable.ic_google),
+                    contentDescription = "google_logo"
+                )
+                androidx.compose.material.Text(
+                    modifier = Modifier
+                        .padding(start = 20.dp)
+                        .align(Alignment.CenterVertically),
+                    text = "Connexion avec Google",
+                    fontSize = MaterialTheme.typography.h6.fontSize,
+                )
+            }
+        }
     }
 }
 

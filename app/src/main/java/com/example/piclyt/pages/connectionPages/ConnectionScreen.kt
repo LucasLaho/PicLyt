@@ -16,26 +16,23 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.piclyt.R
+import com.example.piclyt.fireBaseUtils.AuthManager
 import com.example.piclyt.fireBaseUtils.Connection
-import com.example.piclyt.ui.theme.PicLytTheme
 import com.example.piclyt.utils.CreateLogo
 import com.example.piclyt.utils.CreatePasswordTextField
 import com.example.piclyt.utils.CreateTextField
+import com.example.piclyt.utils.createGoogleSignInButton
 import com.example.piclyt.utils.createHeaderText
-import com.google.firebase.auth.FirebaseAuth
 
 // ########################## Ecran de connexion ######################### //
 
 // Fonction principale de la page de connexion
 @Composable
-fun ConnectionScreen(navController: NavController, context: Context, auth: FirebaseAuth, modifier: Modifier = Modifier) {
+fun ConnectionScreen(navController: NavController, context: Context, authManager: AuthManager, modifier: Modifier = Modifier) {
     Surface(modifier, color = MaterialTheme.colorScheme.background) {
         Box(modifier = Modifier.padding(16.dp), contentAlignment = Alignment.TopCenter) {
             CreateLogo(
@@ -61,7 +58,7 @@ fun ConnectionScreen(navController: NavController, context: Context, auth: Fireb
                 onValueChange = { passwordText = it },
             ) // Champ de saisie du mot de passe
             Button(
-                onClick = { Connection(navController, context, auth, emailText, passwordText) }, // Appel de la fonction de connexion
+                onClick = { Connection(navController, context, authManager.getAuth, emailText, passwordText) }, // Appel de la fonction de connexion
                 modifier = Modifier.padding(top = 8.dp)
             ) {
                 Text("Connexion")
@@ -72,14 +69,8 @@ fun ConnectionScreen(navController: NavController, context: Context, auth: Fireb
                 Text("Pas encore de compte ? Inscris-toi !")
             }
         } // Bouton pour se rédiriger vers la page de connexion
-    }
-}
 
-// ########################## Preview de la page de connexion ######################### //
-@Preview(showBackground = true)
-@Composable
-fun ConnectionPreview() {
-    PicLytTheme {
-        ConnectionScreen(navController = rememberNavController(), LocalContext.current, FirebaseAuth.getInstance())
+
+        createGoogleSignInButton(context, authManager, navController)
     }
 }

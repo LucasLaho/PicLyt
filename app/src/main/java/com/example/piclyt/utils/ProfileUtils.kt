@@ -1,6 +1,7 @@
 package com.example.piclyt.utils
 
 import android.content.Context
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -25,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,10 +34,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.layout.ContentScale
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
+import com.example.piclyt.fireBaseUtils.AuthManager
 import com.example.piclyt.fireBaseUtils.Deconnection
-import com.google.firebase.auth.FirebaseAuth
 
 // ########################## Utilitaires de l'écran de profil ######################### //
 data class UserProfile(
@@ -48,7 +51,7 @@ data class UserProfile(
 
 // Fonction affichant tous les composants sur l'écran de profil ! Composants crées par les fonctions plus bas
 @Composable
-fun UserProfilePage(userProfile: UserProfile, navController: NavController, context: Context, auth: FirebaseAuth) {
+fun UserProfilePage(userProfile: UserProfile, navController: NavController, context: Context, authManager: AuthManager) {
     var isEditing by remember { mutableStateOf(false) }
 
     LazyColumn(
@@ -60,12 +63,13 @@ fun UserProfilePage(userProfile: UserProfile, navController: NavController, cont
                     .fillMaxWidth()
                     .wrapContentHeight()
             ) {
-                ProfilImage(
-                    painter = painterResource(id = userProfile.profileImage),
-                    contentDescription = "Profile Image",
-                    modifier = Modifier
-                        .size(200.dp)
-                        .align(Alignment.CenterHorizontally)
+                ProfileScreen(
+                    profileImage = authManager.getAuth.currentUser?.photoUrl!!,
+                    name = authManager.getAuth.currentUser?.displayName!!,
+                    email = authManager.getAuth.currentUser?.email!!,
+                    signOutClicked = {
+                        authManager.signOut()
+                    }
                 )
 
                 Spacer(modifier = Modifier.height(5.dp))
@@ -101,6 +105,70 @@ fun UserProfilePage(userProfile: UserProfile, navController: NavController, cont
         item {
             DeconnexionButton(navController, onClick = { isEditing = true })
         }
+    }
+}
+
+@Composable
+fun ProfileScreen(
+    profileImage: Uri,
+    name: String,
+    email: String,
+    signOutClicked: () -> Unit
+) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        androidx.compose.material.Card(
+            modifier = Modifier
+                .size(150.dp)
+                .fillMaxHeight(0.4f),
+            shape = RoundedCornerShape(125.dp),
+            elevation = 10.dp
+        ) {
+            AsyncImage(
+                modifier = Modifier.fillMaxSize(),
+                model = profileImage,
+                contentDescription = "profile_photo",
+                contentScale = ContentScale.FillBounds
+            )
+        }
+
+        Column(
+            modifier = Modifier
+                .fillMaxHeight(0.6f)
+                .padding(top = 60.dp)
+        ) {
+            androidx.compose.material.OutlinedTextField(
+                value = name,
+                onValueChange = {},
+                readOnly = true,
+                label = {
+                    androidx.compose.material.Text(text = "Name")
+                },
+            )
+
+            androidx.compose.material.OutlinedTextField(
+                modifier = Modifier.padding(top = 20.dp),
+                value = email,
+                onValueChange = {},
+                readOnly = true,
+                label = {
+                    androidx.compose.material.Text(text = "Email")
+                },
+            )
+
+            androidx.compose.material.Button(
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 100.dp),
+                onClick = { signOutClicked() }
+            ) {
+                androidx.compose.material.Text(text = "LogOut")
+            }
+        }
+
     }
 }
 
