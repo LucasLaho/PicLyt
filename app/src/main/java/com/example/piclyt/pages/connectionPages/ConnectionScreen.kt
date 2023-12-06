@@ -27,12 +27,13 @@ import com.example.piclyt.utils.CreatePasswordTextField
 import com.example.piclyt.utils.CreateTextField
 import com.example.piclyt.utils.createGoogleSignInButton
 import com.example.piclyt.utils.createHeaderText
+import com.google.firebase.firestore.FirebaseFirestore
 
 // ########################## Ecran de connexion ######################### //
 
 // Fonction principale de la page de connexion
 @Composable
-fun ConnectionScreen(navController: NavController, context: Context, authManager: AuthManager, modifier: Modifier = Modifier) {
+fun ConnectionScreen(navController: NavController, context: Context, authManager: AuthManager, db: FirebaseFirestore, modifier: Modifier = Modifier) {
     Surface(modifier, color = MaterialTheme.colorScheme.background) {
         Box(modifier = Modifier.padding(16.dp), contentAlignment = Alignment.TopCenter) {
             CreateLogo(
@@ -58,7 +59,7 @@ fun ConnectionScreen(navController: NavController, context: Context, authManager
                 onValueChange = { passwordText = it },
             ) // Champ de saisie du mot de passe
             Button(
-                onClick = { Connection(navController, context, authManager.getAuth, emailText, passwordText) }, // Appel de la fonction de connexion
+                onClick = { Connection(navController, context, authManager, db, emailText, passwordText) }, // Appel de la fonction de connexion
                 modifier = Modifier.padding(top = 8.dp)
             ) {
                 Text("Connexion")
@@ -67,10 +68,8 @@ fun ConnectionScreen(navController: NavController, context: Context, authManager
         Box(modifier = Modifier.padding(16.dp), contentAlignment = Alignment.BottomCenter) {
             Button(onClick = { navController.navigate("registration") }) {
                 Text("Pas encore de compte ? Inscris-toi !")
-            }
-        } // Bouton pour se rédiriger vers la page de connexion
-
-
-        createGoogleSignInButton(context, authManager, navController)
+            } // Bouton pour se rédiriger vers la page d'inscription
+            createGoogleSignInButton(context, authManager, navController)
+        }
     }
 }

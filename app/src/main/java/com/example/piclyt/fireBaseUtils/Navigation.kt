@@ -16,7 +16,10 @@ import com.example.piclyt.pages.connectionPages.ConnectionScreen
 import com.example.piclyt.pages.connectionPages.RegistrationScreen
 import com.example.piclyt.pages.homePages.ProfileScreen
 import com.example.piclyt.pages.annexePages.SettingsScreen
+import com.example.piclyt.pages.connectionPages.UsernameScreen
 import com.example.piclyt.pages.homePages.ShopScreen
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 // ############################# Utilitaires pour la fonctionnalité de navigation ########################## //
 
@@ -28,23 +31,35 @@ fun PicLytNavHost(context: ComponentActivity) {
     var authManager = AuthManager(context)
     val navController = rememberNavController()
     val currentUser = authManager.getAuth.currentUser
+    val db = Firebase.firestore
     var startDestination = "connection"
     val listMedias = MediaModel.getInstance() // Liste des images enregistrées par l'utilisateur tranférées à toutes les pages via la navigation
 
-    if (currentUser != null) { // Test d'une possible connexion en suspens
-        startDestination = "Home"
+    if (currentUser != null) { // Test d'une possible connexion existante
+        val existingUsername = db.collection("usernames") // Test d'un username déjà existant ou non
+            .document(currentUser.uid)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document!=null && document.exists()) { // Si oui, direction homepage
+                    startDestination = "Home"
+                }
+                else startDestination = "Username" // Sinon, direction username page
+            }
     }
 
     // Liste des navigations possibles dans l'application
     NavHost(navController = navController, startDestination) {
         composable("connection") { // Vers la page de connexion
-            ConnectionScreen(navController = navController, context.applicationContext, authManager, modifier = Modifier.fillMaxSize())
+            ConnectionScreen(navController = navController, context.applicationContext, authManager, db, modifier = Modifier.fillMaxSize())
         }
         composable("registration") {// Vers la page d'inscription
             RegistrationScreen(navController = navController, context.applicationContext, authManager, modifier = Modifier.fillMaxSize())
         }
+        composable("Username") {// Vers la page de choix de nom d'utilisateur
+            UsernameScreen(navController = navController, context.applicationContext, authManager, db, modifier = Modifier.fillMaxSize())
+        }
         composable("Home") {// Vers la page d'accueil/liste des albums
-            HomeScreen(navController = navController, context.applicationContext, authManager, modifier = Modifier.fillMaxSize(), listMedias)
+            HomeScreen(navController = navController, context.applicationContext, authManager, db, modifier = Modifier.fillMaxSize(), listMedias)
         }
         composable("Profile") {// Vers la page de profil
             ProfileScreen(navController = navController, context.applicationContext, authManager, modifier = Modifier.fillMaxSize(), listMedias)

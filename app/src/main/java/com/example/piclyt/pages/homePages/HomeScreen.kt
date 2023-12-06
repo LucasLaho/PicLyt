@@ -13,16 +13,18 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.piclyt.data.MediaModel
 import com.example.piclyt.fireBaseUtils.AuthManager
+import com.example.piclyt.fireBaseUtils.getUsername
 import com.example.piclyt.utils.AlbumSection
 import com.example.piclyt.utils.GreetingSection
 import com.example.piclyt.utils.createBottomNavigation
 import com.example.piclyt.utils.createHeaderText
+import com.google.firebase.firestore.FirebaseFirestore
 
 // ########################## Ecran d'accueil ######################### //
 
 // Fonction principale de l'écran d'accueil
 @Composable
-fun HomeScreen(navController: NavController, context: Context, authManager: AuthManager, modifier: Modifier = Modifier, viewModel: MediaModel) {
+fun HomeScreen(navController: NavController, context: Context, authManager: AuthManager, db: FirebaseFirestore, modifier: Modifier = Modifier, viewModel: MediaModel) {
     createBottomNavigation(navController, context, modifier, true, viewModel) // Affichage de la barre de navigation
 
     Box(
@@ -36,7 +38,7 @@ fun HomeScreen(navController: NavController, context: Context, authManager: Auth
                 .fillMaxWidth()
         ) {
             createHeaderText("Albums") // Affichage du titre
-            GreetingSection("Thierry") // Affichage du message de bienvenu
+            GreetingSection(getUsername(authManager, db)) // Affichage du message de bienvenue
             AlbumSection(navController) // Affichage des albums sur la page d'accueil. Bug encore
         }
     }

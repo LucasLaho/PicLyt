@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -22,21 +21,21 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.piclyt.R
 import com.example.piclyt.fireBaseUtils.AuthManager
-import com.example.piclyt.fireBaseUtils.Registration
+import com.example.piclyt.fireBaseUtils.Username
 import com.example.piclyt.utils.CreateLogo
-import com.example.piclyt.utils.CreatePasswordTextField
 import com.example.piclyt.utils.CreateTextField
-import com.example.piclyt.utils.createGoogleSignInButton
 import com.example.piclyt.utils.createHeaderText
+import com.google.firebase.firestore.FirebaseFirestore
 
-// ########################## Ecran d'inscription ######################### //
+// ########################## Ecran de choix de nom d'utilisateur ######################### //
 
 // Fonction principale de la page d'inscription
 @Composable
-fun RegistrationScreen(
+fun UsernameScreen(
     navController: NavController,
     context: Context,
     authManager: AuthManager,
+    db: FirebaseFirestore,
     modifier: Modifier = Modifier
 ) {
 
@@ -53,23 +52,18 @@ fun RegistrationScreen(
             modifier = Modifier.padding(16.dp)
         ) {
 
-            createHeaderText("Inscription") // Affichage du titre de la page
-            var emailText by rememberSaveable { mutableStateOf("") }
-            var passwordText by rememberSaveable { mutableStateOf("") }
+            createHeaderText("Choix du nom d'utilisateur") // Affichage du titre de la page
+            var usernameText by rememberSaveable { mutableStateOf("") }
             CreateTextField(
-                label = "Adresse e-mail",
-                onValueChange = { emailText = it },
-            ) // Champ pour saisir l'adresse email
-            CreatePasswordTextField(
-                label = "Mot de passe",
-                onValueChange = { passwordText = it },
-            ) // Champ pour saisir le mot de passe
+                label = "Nom d'utilisateur",
+                onValueChange = { usernameText = it },
+            ) // Champ pour saisir le nom d'utilisateur
             Button(
-                onClick = { Registration(navController, context, authManager.getAuth, emailText, passwordText) }, // Appel de la fonction d'inscription
+                onClick = { Username(navController, context, authManager, db, usernameText) }, // Appel de la fonction de sélection du nom d'utilisateur
                 modifier = Modifier.padding(top = 8.dp)
             ) {
-                Text("Inscription")
-            } // Bouton permettant de s'inscrire
+                Text("Valider")
+            } // Bouton permettant de valider le nom d'utilisateur
         }
     }
 }

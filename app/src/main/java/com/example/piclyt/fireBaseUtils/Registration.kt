@@ -17,7 +17,7 @@ fun Registration(navController: NavController, context: Context, auth: FirebaseA
             .addOnCompleteListener() { task ->
                 if (task.isSuccessful) { // En cas de réussite, redirection directement vers la page d'accueil
                     Toast.makeText(context, "Compte créé avec succès", Toast.LENGTH_SHORT).show()
-                    navController.navigate("Home") {
+                    navController.navigate("Username") {
                         popUpTo("connection") { inclusive = true }
                     }
                 }

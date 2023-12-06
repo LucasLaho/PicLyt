@@ -85,6 +85,7 @@ fun CreateTextField(label: String, onValueChange: (String) -> Unit) {
     )
 }
 
+// Fonction pour la création d'un TextField pour mot de passe
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreatePasswordTextField(label: String, onValueChange: (String) -> Unit) {
