@@ -3,6 +3,7 @@ package com.example.piclyt.fireBaseUtils
 import android.content.Context
 import android.widget.Toast
 import androidx.navigation.NavController
+import com.example.piclyt.MainActivity.Companion.authManager
 import com.example.piclyt.utils.testDataFields
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
@@ -10,7 +11,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 // ############################# Utilitaires pour la fonctionnalité de connexion ########################## //
 
 // Fonction permettant d'établir une connexion à Firebase depuis l'écran de connexion
-fun Connection(navController: NavController, context: Context, authManager: AuthManager, emailText: String, passwordText: String) {
+fun Connection(navController: NavController, context: Context, emailText: String, passwordText: String) {
 
     if (testDataFields(context, emailText, passwordText)) {
         authManager.getAuth.signInWithEmailAndPassword(emailText, passwordText)

@@ -22,6 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.piclyt.MainActivity.Companion.authManager
 import com.example.piclyt.R
 import com.example.piclyt.fireBaseUtils.AuthManager
 import com.example.piclyt.fireBaseUtils.Registration
@@ -37,7 +38,6 @@ import com.example.piclyt.utils.createHeaderText
 fun RegistrationScreen(
     navController: NavController,
     context: Context,
-    authManager: AuthManager,
     modifier: Modifier = Modifier
 ) {
 

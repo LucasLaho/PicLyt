@@ -21,8 +21,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.piclyt.MainActivity.Companion.authManager
 import com.example.piclyt.R
-import com.example.piclyt.fireBaseUtils.AuthManager
 import com.example.piclyt.fireBaseUtils.Connection
 import com.example.piclyt.utils.CreateLogo
 import com.example.piclyt.utils.CreatePasswordTextField
@@ -35,7 +35,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 // Fonction principale de la page de connexion
 @Composable
-fun ConnectionScreen(navController: NavController, context: Context, authManager: AuthManager, db: FirebaseFirestore, modifier: Modifier = Modifier) {
+fun ConnectionScreen(navController: NavController, context: Context, db: FirebaseFirestore, modifier: Modifier = Modifier) {
     Surface(modifier, color = MaterialTheme.colorScheme.background) {
         Box(modifier = Modifier.padding(bottom = 70.dp), contentAlignment = Alignment.TopCenter) { // Ajustez ici le padding pour déplacer le logo vers le haut
             CreateLogo(
@@ -72,7 +72,7 @@ fun ConnectionScreen(navController: NavController, context: Context, authManager
             Spacer(modifier = Modifier.padding(top = 10.dp))
 
             Button(
-                onClick = { Connection(navController, context, authManager, emailText, passwordText) }, // Appel de la fonction de connexion
+                onClick = { Connection(navController, context, emailText, passwordText) }, // Appel de la fonction de connexion
                 modifier = Modifier.padding(top = 8.dp)
             ) {
                 Text("Connexion")
