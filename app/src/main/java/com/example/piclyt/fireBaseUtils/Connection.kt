@@ -4,43 +4,40 @@ import android.content.Context
 import android.widget.Toast
 import androidx.navigation.NavController
 import com.example.piclyt.utils.testDataFields
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 
 // ############################# Utilitaires pour la fonctionnalité de connexion ########################## //
 
 // Fonction permettant d'établir une connexion à Firebase depuis l'écran de connexion
-fun Connection(navController: NavController, context: Context, authManager: AuthManager, db: FirebaseFirestore, emailText: String, passwordText: String) {
+fun Connection(navController: NavController, context: Context, authManager: AuthManager, emailText: String, passwordText: String) {
 
-    if(testDataFields(context, emailText, passwordText)){
-        // Exécution de la connexion à Firebase
+    if (testDataFields(context, emailText, passwordText)) {
         authManager.getAuth.signInWithEmailAndPassword(emailText, passwordText)
-            .addOnCompleteListener() {
-
-                    task -> if (task.isSuccessful) { // En cas de réussite, redirection
-                val currentUser = authManager.getAuth.currentUser
-                if (currentUser != null) { // Test d'une possible connexion existante
-                    val existingUsername = db.collection("usernames")
-                        .document(currentUser.uid)
-                        .get()
-                        .addOnSuccessListener { document ->
-                            if (document!=null && document.exists()) { // Si username existant, direction homepage
-                                navController.navigate("Home") {
-                                    popUpTo("connection") { inclusive = true } // Suppression de l'historique de navigation
-                                }
-                            }
-                            else { // Sinon, direction username page
-                                navController.navigate("Username") {
-                                    popUpTo("connection") { inclusive = true } // Suppression de l'historique de navigation
-                                }
-                            }
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) { // Cas 1 : Connexion réussie
+                    Toast.makeText(context, "Bienvenu à vous !", Toast.LENGTH_SHORT).show()
+                    navController.navigate("Home") {
+                        popUpTo("connection") { inclusive = true } // Suppression de l'historique de navigation
+                    }
+                } else {
+                    // En cas d'echec de la connexion
+                    val exception = task.exception
+                    when {
+                        exception is FirebaseAuthInvalidUserException -> {
+                            // Si l'utilisateur n'existe pas
+                            Toast.makeText(context, "Le compte n'existe pas !", Toast.LENGTH_SHORT).show() // S'AFFICHE PAS
                         }
+                        exception is FirebaseAuthInvalidCredentialsException -> {
+                            // Si le mot de passe est incorrect
+                            Toast.makeText(context, "Mot de passe incorrect !", Toast.LENGTH_SHORT).show()
+                        }
+                        else -> {
+                            // Toute autre erreur
+                            Toast.makeText(context, "Une erreur est survenue. Veuillez réessayer !", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
             }
-            else { // En cas d'erreur, on affiche une pop-up
-                Toast.makeText(context, "Échec de la connexion ! Veuillez réessayer", Toast.LENGTH_SHORT).show()
-            }
-        }
     }
 }
-

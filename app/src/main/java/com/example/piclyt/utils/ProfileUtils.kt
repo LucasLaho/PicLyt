@@ -63,14 +63,14 @@ fun UserProfilePage(userProfile: UserProfile, navController: NavController, cont
                     .fillMaxWidth()
                     .wrapContentHeight()
             ) {
-                ProfileScreen(
+                /*ProfileScreen(
                     profileImage = authManager.getAuth.currentUser?.photoUrl!!,
                     name = authManager.getAuth.currentUser?.displayName!!,
                     email = authManager.getAuth.currentUser?.email!!,
                     signOutClicked = {
                         authManager.signOut()
                     }
-                )
+                )*/
 
                 Spacer(modifier = Modifier.height(5.dp))
 

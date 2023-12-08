@@ -4,14 +4,12 @@ import android.content.Intent
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.navigation.compose.rememberNavController
 import com.example.piclyt.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 
 class AuthManager(private val activity: ComponentActivity) {
@@ -19,6 +17,8 @@ class AuthManager(private val activity: ComponentActivity) {
     private val RC_SIGN_IN = 100
     private var googleSignInClient: GoogleSignInClient
     private var auth: FirebaseAuth
+    private lateinit var emailText : String
+    private lateinit var passwordText : String
 
     init {
         // Configure Google SignIn and FirebaseAuth here
@@ -33,6 +33,12 @@ class AuthManager(private val activity: ComponentActivity) {
 
     val getAuth: FirebaseAuth
         get() = FirebaseAuth.getInstance()
+
+    val getEmailText: String
+        get() = emailText
+
+    val getPasswordText: String
+        get() = passwordText
 
     fun signIn() : Boolean {
         var connected = false
@@ -96,5 +102,10 @@ class AuthManager(private val activity: ComponentActivity) {
             .addOnFailureListener {
                 Toast.makeText(activity, "Sign Out Failed", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    fun initLogin(emailText : String, passwordText : String){
+        this.emailText = emailText
+        this.passwordText = passwordText
     }
 }

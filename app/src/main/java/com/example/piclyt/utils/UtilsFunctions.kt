@@ -15,8 +15,13 @@ fun testDataFields(context: Context, emailText: String, passwordText: String): B
         return false
     }
 
-    else if(TextUtils.isEmpty(passwordText)) { // Vérification que le champ mot de passe n'est pas vide
+    if(TextUtils.isEmpty(passwordText)) { // Vérification que le champ mot de passe n'est pas vide
         Toast.makeText(context, "Veuillez renseigner votre mot de passe", Toast.LENGTH_SHORT).show()
+        return false
+    }
+
+    if (passwordText.length<6) {
+        Toast.makeText(context, "Échec de l'inscription ! Mot de passe de 6 caractères minimum", Toast.LENGTH_SHORT).show()
         return false
     }
 

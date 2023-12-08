@@ -17,9 +17,6 @@ import androidx.compose.ui.unit.dp
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,7 +24,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -44,6 +40,8 @@ import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationBar
@@ -255,45 +253,41 @@ fun createGoogleSignInButton(
     authManager: AuthManager,
     navController: NavController
 ) {
-
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Card(
-            modifier = Modifier
-                .padding(start = 30.dp, end = 30.dp)
-                .height(55.dp)
-                .fillMaxWidth()
-                .clickable {
-                    if(authManager.signIn()){
-                        navController.navigate("Home")
-                        Toast.makeText(context, "Bouton appuyé", Toast.LENGTH_SHORT).show()
-                    }
-                },
-            shape = RoundedCornerShape(10.dp),
-            border = BorderStroke(width = 1.5.dp, color = Color.Black),
-            elevation = 5.dp
-        ) {
-            Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
-                Image(
-                    modifier = Modifier
-                        .padding(start = 15.dp)
-                        .size(32.dp)
-                        .padding(0.dp)
-                        .align(Alignment.CenterVertically),
-                    painter = painterResource(id = R.drawable.ic_google),
-                    contentDescription = "google_logo"
-                )
-                androidx.compose.material.Text(
-                    modifier = Modifier
-                        .padding(start = 20.dp)
-                        .align(Alignment.CenterVertically),
-                    text = "Connexion avec Google",
-                    fontSize = MaterialTheme.typography.h6.fontSize,
-                )
+    Button(
+        onClick = {
+            if (authManager.signIn()) {
+                navController.navigate("Home")
+                Toast.makeText(context, "Bouton appuyé", Toast.LENGTH_SHORT).show()
             }
+        },
+        modifier = Modifier
+            .height(55.dp)
+            .fillMaxWidth(),
+        shape = RoundedCornerShape(10.dp),
+        border = BorderStroke(width = 1.5.dp, color = Color.Black),
+        colors = ButtonDefaults.buttonColors(containerColor = Color.White)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxSize(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                modifier = Modifier
+                    .padding(start = 15.dp)
+                    .size(32.dp)
+                    .padding(0.dp)
+                    .align(Alignment.CenterVertically),
+                painter = painterResource(id = R.drawable.ic_google),
+                contentDescription = "google_logo"
+            )
+            Text(
+                modifier = Modifier
+                    .padding(start = 20.dp)
+                    .align(Alignment.CenterVertically),
+                text = "Connexion avec Google",
+                fontSize = MaterialTheme.typography.h6.fontSize,
+                color = Color.Black
+            )
         }
     }
 }

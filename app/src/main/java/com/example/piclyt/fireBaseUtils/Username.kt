@@ -24,20 +24,27 @@ fun Username(navController: NavController, context: Context, authManager: AuthMa
             .addOnSuccessListener { querySnapshot ->
                 if (!querySnapshot.isEmpty) {
                     // Si le nom d'utilisateur existe déjà
-                    Toast.makeText(context, "$usernameText est déjà utilisé", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "$usernameText est déjà utilisé !!", Toast.LENGTH_SHORT).show()
                 } else {
-                    // Si le nom d'utilisateur est disponible, on l'ajoute
-                    db.collection("usernames").document(uid).set(user)
-                        .addOnSuccessListener { documentReference ->
-                            // Message de bienvenue et navigation à la homepage
-                            Toast.makeText(context, "Bienvenue, $usernameText !", Toast.LENGTH_SHORT).show()
-                            navController.navigate("Home") {
-                                popUpTo("Username") { inclusive = true } // Suppression de l'historique de navigation
+
+                    // Exécution de l'ajout d'un compte à Firebase
+                    authManager.getAuth.createUserWithEmailAndPassword(authManager.getEmailText, authManager.getPasswordText)
+                        .addOnCompleteListener() { task ->
+                            if (task.isSuccessful) { // En cas de réussite, redirection directement vers la page d'accueil
+                                // Si le nom d'utilisateur est disponible, on l'ajoute
+                                db.collection("usernames").document(uid).set(user)
+                                    .addOnSuccessListener { documentReference ->
+                                        // Message de bienvenue et navigation à la homepage
+                                        Toast.makeText(context, "Compte créé avec succès", Toast.LENGTH_SHORT).show()
+                                        navController.navigate("Home") {
+                                            popUpTo("Username") { inclusive = true } // Suppression de l'historique de navigation
+                                        }
+                                    }
+                                    .addOnFailureListener { e ->
+                                        // Message d'erreur
+                                        Toast.makeText(context, "Erreur de connexion à la base de données", Toast.LENGTH_SHORT).show()
+                                    }
                             }
-                        }
-                        .addOnFailureListener { e ->
-                            // Message d'erreur
-                            Toast.makeText(context, "Erreur de connexion à la base de données", Toast.LENGTH_SHORT).show()
                         }
                 }
             }
