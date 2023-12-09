@@ -36,7 +36,7 @@ import com.example.piclyt.utils.createHeaderText
 fun RegistrationScreen(navController: NavController, context: Context, modifier: Modifier = Modifier) {
 
     Surface(modifier, color = MaterialTheme.colorScheme.background) {
-        Box(modifier = Modifier.padding(bottom = 500.dp), contentAlignment = Alignment.TopCenter) {
+        Box(modifier = Modifier.padding(bottom = 550.dp), contentAlignment = Alignment.TopCenter) {
             CreateLogo(
                 painter = painterResource(id = R.mipmap.ic_launcher_foreground),
                 contentDescription = "Logo"
@@ -91,6 +91,13 @@ fun RegistrationScreen(navController: NavController, context: Context, modifier:
             ) {
                 Text("Suivant")
             } // Bouton permettant de s'inscrire
+
+            Button(
+                onClick = { navController.navigate("connection") }, // Retour à la page d'inscription
+                modifier = Modifier.padding(top = 8.dp)
+            ) {
+                Text("Retour")
+            } // Bouton permettant de retourner en arrière
         }
     }
 }
