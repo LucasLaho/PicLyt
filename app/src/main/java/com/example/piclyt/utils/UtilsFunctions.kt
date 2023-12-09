@@ -3,6 +3,8 @@ package com.example.piclyt.utils
 import android.content.Context
 import android.text.TextUtils
 import android.widget.Toast
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.tasks.await
 
 // Utilité : Ici, on retrouve toutes les fonctions et classes utiles pour toutes les pages au bon déroulement de l'application !
 // ############################# Listes des fonctions de tests ########################## //
@@ -26,4 +28,18 @@ fun testDataFields(context: Context, emailText: String, passwordText: String): B
     }
 
     return true // Retour d'une validation pour passer à la navigation
+}
+
+fun isUsernameAvailable(db: FirebaseFirestore, usernameText: String, callback: (Boolean) -> Unit) {
+    db.collection("usernames")
+        .whereEqualTo("username", usernameText)
+        .get()
+        .addOnSuccessListener { querySnapshot ->
+            // Si la liste est vide, le nom d'utilisateur est disponible
+            callback(querySnapshot.isEmpty)
+        }
+        .addOnFailureListener {
+            // En cas d'erreur, on considère que le nom d'utilisateur est indisponible
+            callback(false)
+        }
 }

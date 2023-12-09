@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.Toast
 import androidx.navigation.NavController
 import com.example.piclyt.MainActivity.Companion.authManager
+import com.example.piclyt.utils.isUsernameAvailable
 import com.google.firebase.firestore.FirebaseFirestore
 
 // ############################# Utilitaires pour la fonctionnalité de choix de nom d'utilisateur ########################## //
@@ -15,37 +16,45 @@ fun Username(navController: NavController, context: Context, db: FirebaseFiresto
     val user = hashMapOf(
         "username" to usernameText
     )
+
     // Si on est bien connectés
     if(uid!=null) {
-        // On check dans la collection usernames
-        db.collection("usernames")
-            // Si il y a déjà le même username que celui souhaité
-            .whereEqualTo("username", usernameText)
-            .get()
-            .addOnSuccessListener { querySnapshot ->
-                if (!querySnapshot.isEmpty) {
-                    // Si le nom d'utilisateur existe déjà
-                    Toast.makeText(context, "$usernameText est déjà utilisé", Toast.LENGTH_SHORT).show()
-                } else {
-                    // Si le nom d'utilisateur est disponible, on l'ajoute
-                    db.collection("usernames").document(uid).set(user)
-                        .addOnSuccessListener { documentReference ->
-                            // Message de bienvenue et navigation à la homepage
-                            Toast.makeText(context, "Bienvenue, $usernameText !", Toast.LENGTH_SHORT).show()
-                            navController.navigate("Home") {
-                                popUpTo("Username") { inclusive = true } // Suppression de l'historique de navigation
-                            }
-                        }
-                        .addOnFailureListener { e ->
-                            // Message d'erreur
-                            Toast.makeText(context, "Erreur de connexion à la base de données", Toast.LENGTH_SHORT).show()
-                        }
+
+        isUsernameAvailable(db, usernameText) { isAvailable ->
+
+            if (isAvailable && addUser(db, uid, user, context)) {
+
+                // Message de bienvenue et navigation à la homepage
+                Toast.makeText(context, "Bienvenue, $usernameText !", Toast.LENGTH_SHORT).show()
+                navController.navigate("Home") {
+                    popUpTo("Username") { inclusive = true } // Suppression de l'historique de navigation
                 }
+
+            } else {
+                // Si le nom d'utilisateur existe déjà
+                Toast.makeText(context, "$usernameText est déjà utilisé", Toast.LENGTH_SHORT).show()
             }
-            .addOnFailureListener { e ->
+        }
+    }
+
+}
+
+fun addUser(db: FirebaseFirestore, uid: String, user: Map<String, Any>, context: Context): Boolean {
+    try {
+
+        // Ajoute le nouvel utilisateur
+        db.collection("users").document(uid).set(user)
+            .addOnSuccessListener {}
+            .addOnFailureListener {
                 // Message d'erreur
                 Toast.makeText(context, "Erreur de connexion à la base de données", Toast.LENGTH_SHORT).show()
             }
+
+        return true // La tentative d'ajout a réussi
+    } catch (e: Exception) {
+        // En cas d'erreur inattendue
+        Toast.makeText(context, "Erreur lors de l'ajout de l'utilisateur", Toast.LENGTH_SHORT).show()
+        return false // La tentative d'ajout a échoué
     }
 }
 

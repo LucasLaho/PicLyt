@@ -12,6 +12,14 @@ import com.google.firebase.auth.FirebaseAuth
 // Fonction permettant d'établir une inscription à Firebase depuis l'écran d'inscription
 fun Registration(navController: NavController, context: Context, emailText: String, passwordText: String) {
 
+   /* if(testDataFields(context, emailText, passwordText)){
+        Toast.makeText(context, "Informations correctes", Toast.LENGTH_SHORT).show()
+        navController.navigate("Username") {
+            popUpTo("connection") { inclusive = true }
+        }
+        authManager.initLogin(emailText,passwordText)
+    }*/
+
     if(testDataFields(context, emailText, passwordText)){
         // Exécution de l'ajout d'un compte à Firebase
         authManager.getAuth.createUserWithEmailAndPassword(emailText, passwordText)
@@ -21,9 +29,6 @@ fun Registration(navController: NavController, context: Context, emailText: Stri
                     navController.navigate("Username") {
                         popUpTo("connection") { inclusive = true }
                     }
-                }
-                else if (passwordText.length<6) {
-                    Toast.makeText(context, "Échec de l'inscription ! Mot de passe de 6 caractères minimum", Toast.LENGTH_SHORT).show()
                 }
                 else { // En cas d'erreur, affichage d'une pop-up
                     Toast.makeText(context, "Échec de l'inscription ! Veuillez réessayer", Toast.LENGTH_SHORT).show()
