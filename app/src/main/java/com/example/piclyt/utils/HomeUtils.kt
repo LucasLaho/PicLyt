@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.piclyt.R
+import com.example.piclyt.MainActivity.Companion.Album
 
 // ############################# Liste des fonctions de la page d'accueil ########################## //
 
@@ -97,8 +98,6 @@ fun AlbumItem(album: Album, onClick: () -> Unit) {
     }
 }
 
-// Modèle de données pour un album
-data class Album(val name: String, val imageResource: Int)
 
 // Fonction pour afficher un message de bienvenu
 @Composable

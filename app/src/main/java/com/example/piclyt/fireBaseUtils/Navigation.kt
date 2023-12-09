@@ -38,6 +38,8 @@ fun PicLytNavHost(context: ComponentActivity) {
 
     // Liste des navigations possibles dans l'application
     NavHost(navController = navController, startDestination) {
+
+        // ############# Connection / Inscription pages #################### //
         composable("connection") { // Vers la page de connexion
             ConnectionScreen(navController = navController, context.applicationContext, modifier = Modifier.fillMaxSize())
         }
@@ -47,14 +49,13 @@ fun PicLytNavHost(context: ComponentActivity) {
         composable("Username") {// Vers la page de choix de nom d'utilisateur
             UsernameScreen(navController = navController, context.applicationContext, db, modifier = Modifier.fillMaxSize())
         }
+
+        // ############## Main pages after connection ####################### //
         composable("Home") {// Vers la page d'accueil/liste des albums
             HomeScreen(navController = navController, context.applicationContext, db, modifier = Modifier.fillMaxSize())
         }
         composable("Profile") {// Vers la page de profil
             ProfileScreen(navController = navController, context.applicationContext, modifier = Modifier.fillMaxSize())
-        }
-        composable("ModifyProfile") {// Vers la page de profil
-            ModifyProfileScreen(navController = navController, context.applicationContext, modifier = Modifier.fillMaxSize())
         }
         composable("Friends") {// Vers la page d'Amis
             FriendsScreen(navController = navController, context.applicationContext, modifier = Modifier.fillMaxSize())
@@ -62,11 +63,16 @@ fun PicLytNavHost(context: ComponentActivity) {
         composable("Add") {// Vers la page d'ajout d'album
             AddScreen(navController = navController, context.applicationContext, modifier = Modifier.fillMaxSize())
         }
-        composable("Settings") {// Vers la page de paramètres
-            SettingsScreen(navController = navController, context.applicationContext, modifier = Modifier.fillMaxSize())
-        }
         composable("Shop") {// Vers la page de boutique
             ShopScreen(navController = navController, context.applicationContext, modifier = Modifier.fillMaxSize())
+        }
+
+        // ############## Annexe pages from main pages ####################### //
+        composable("ModifyProfile") {// Vers la page de profil
+            ModifyProfileScreen(navController = navController, context.applicationContext, modifier = Modifier.fillMaxSize())
+        }
+        composable("Settings") {// Vers la page de paramètres
+            SettingsScreen(navController = navController, context.applicationContext, modifier = Modifier.fillMaxSize())
         }
     }
 }
