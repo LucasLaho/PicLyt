@@ -7,7 +7,6 @@ import androidx.navigation.NavController
 import com.example.piclyt.MainActivity.Companion.authManager
 import com.example.piclyt.MainActivity.Companion.listMedias
 import com.example.piclyt.R
-import com.example.piclyt.data.MediaModel
 import com.example.piclyt.utils.UserProfile
 import com.example.piclyt.utils.UserProfilePage
 import com.example.piclyt.utils.createBottomNavigation

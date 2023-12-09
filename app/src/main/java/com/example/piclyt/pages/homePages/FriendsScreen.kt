@@ -12,8 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.piclyt.MainActivity.Companion.listMedias
-import com.example.piclyt.data.MediaModel
-import com.example.piclyt.fireBaseUtils.AuthManager
 import com.example.piclyt.utils.PickImageFromGallery
 import com.example.piclyt.utils.createBottomNavigation
 import com.example.piclyt.utils.createHeaderText

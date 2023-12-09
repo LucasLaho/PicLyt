@@ -42,9 +42,9 @@ fun AlbumSection(navController: NavController) {
     val albums = remember {
         listOf(
             Album("Vacances", R.drawable.ic_launcher_background),
-            Album("Famille", R.drawable.ic_launcher_foreground),
+            Album("Famille", R.drawable.ic_google),
             Album("Mariage", R.drawable.ic_launcher_background),
-            Album("Fêtes", R.drawable.ic_launcher_foreground),
+            Album("Fêtes", R.drawable.ic_facebook),
         )
     }
 

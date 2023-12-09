@@ -35,7 +35,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 // Fonction principale de la page de connexion
 @Composable
-fun ConnectionScreen(navController: NavController, context: Context, db: FirebaseFirestore, modifier: Modifier = Modifier) {
+fun ConnectionScreen(navController: NavController, context: Context, modifier: Modifier = Modifier) {
     Surface(modifier, color = MaterialTheme.colorScheme.background) {
         Box(modifier = Modifier.padding(bottom = 70.dp), contentAlignment = Alignment.TopCenter) { // Ajustez ici le padding pour déplacer le logo vers le haut
             CreateLogo(

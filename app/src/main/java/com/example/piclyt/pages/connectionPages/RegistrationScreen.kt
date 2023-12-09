@@ -22,9 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.piclyt.MainActivity.Companion.authManager
 import com.example.piclyt.R
-import com.example.piclyt.fireBaseUtils.AuthManager
 import com.example.piclyt.fireBaseUtils.Registration
 import com.example.piclyt.utils.CreateLogo
 import com.example.piclyt.utils.CreatePasswordTextField
@@ -35,11 +33,7 @@ import com.example.piclyt.utils.createHeaderText
 
 // Fonction principale de la page d'inscription
 @Composable
-fun RegistrationScreen(
-    navController: NavController,
-    context: Context,
-    modifier: Modifier = Modifier
-) {
+fun RegistrationScreen(navController: NavController, context: Context, modifier: Modifier = Modifier) {
 
     Surface(modifier, color = MaterialTheme.colorScheme.background) {
         Box(modifier = Modifier.padding(bottom = 500.dp), contentAlignment = Alignment.TopCenter) {

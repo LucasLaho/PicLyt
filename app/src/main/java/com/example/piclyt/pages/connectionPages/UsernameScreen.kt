@@ -33,12 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 // Fonction principale de la page d'inscription
 @Composable
-fun UsernameScreen(
-    navController: NavController,
-    context: Context,
-    db: FirebaseFirestore,
-    modifier: Modifier = Modifier
-) {
+fun UsernameScreen(navController: NavController, context: Context, db: FirebaseFirestore, modifier: Modifier = Modifier) {
 
     Surface(modifier, color = MaterialTheme.colorScheme.background) {
         Box(modifier = Modifier.padding(bottom = 500.dp), contentAlignment = Alignment.TopCenter) {

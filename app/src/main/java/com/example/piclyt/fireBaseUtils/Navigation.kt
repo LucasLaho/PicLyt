@@ -39,7 +39,7 @@ fun PicLytNavHost(context: ComponentActivity) {
     // Liste des navigations possibles dans l'application
     NavHost(navController = navController, startDestination) {
         composable("connection") { // Vers la page de connexion
-            ConnectionScreen(navController = navController, context.applicationContext, db, modifier = Modifier.fillMaxSize())
+            ConnectionScreen(navController = navController, context.applicationContext, modifier = Modifier.fillMaxSize())
         }
         composable("registration") {// Vers la page d'inscription
             RegistrationScreen(navController = navController, context.applicationContext, modifier = Modifier.fillMaxSize())
