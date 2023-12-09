@@ -153,6 +153,7 @@ fun createHeaderText(text: String){
 // Liste des paramètres de la fonction : "createBottomNavigation"
 data class BottomNavigationItem (
     val title: String,
+    val routeName: String,
     val sublist: List<String>, // Sous liste des éléments d'une section
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector,
@@ -169,14 +170,16 @@ fun createBottomNavigation(navController: NavController, context: Context, modif
     // Liste des éléments de la navigation
     val items = listOf(
         BottomNavigationItem (
-            title = "Home",
+            title = "Accueil",
+            routeName = "Home",
             sublist = listOf(""),
             selectedIcon = Icons.Filled.Home,
             unselectedIcon = Icons.Outlined.Home,
             hasNews = false,
         ),
         BottomNavigationItem (
-            title = "Friends",
+            title = "Amis",
+            routeName = "Friends",
             sublist = listOf(""),
             selectedIcon = Icons.Filled.Group,
             unselectedIcon = Icons.Outlined.Group,
@@ -184,21 +187,24 @@ fun createBottomNavigation(navController: NavController, context: Context, modif
             badgeCount = 0
         ),
         BottomNavigationItem (
-            title = "Add",
+            title = "Ajouter",
+            routeName = "Add",
             sublist = listOf(""),
             selectedIcon = Icons.Filled.Add,
             unselectedIcon = Icons.Outlined.Add,
             hasNews = false,
         ),
         BottomNavigationItem (
-            title = "Shop",
+            title = "Boutique",
+            routeName = "Shop",
             sublist = listOf(""),
             selectedIcon = Icons.Filled.ShoppingCart,
             unselectedIcon = Icons.Outlined.ShoppingCart,
             hasNews = true,
         ),
         BottomNavigationItem (
-            title = "Profile",
+            title = "Profil",
+            routeName = "Profile",
             sublist = listOf("Settings"),
             selectedIcon = Icons.Filled.Person,
             unselectedIcon = Icons.Outlined.Person,
@@ -215,9 +221,9 @@ fun createBottomNavigation(navController: NavController, context: Context, modif
                 NavigationBar {
                     items.forEachIndexed { index, item ->
                         NavigationBarItem(
-                            selected = currentPosition == item.title || item.sublist.contains(currentPosition), // Active le logo correspondant au nom de la page
+                            selected = currentPosition == item.routeName || item.sublist.contains(currentPosition), // Active le logo correspondant au nom de la page
                             onClick = {
-                                navController.navigate(item.title) // Navigation vers la page du même nom que l'élément
+                                navController.navigate(item.routeName) // Navigation vers la page du même nom que l'élément
                             },
                             label = {
                                 Text(text = item.title) // Affichage du nom de l'élément
@@ -236,7 +242,7 @@ fun createBottomNavigation(navController: NavController, context: Context, modif
                                     Icon( // Affichage de l'icône de l'élément
                                         imageVector = if (isSelected) item.selectedIcon
                                         else item.unselectedIcon,
-                                        contentDescription = item.title
+                                        contentDescription = item.routeName
                                     )
                                 }
                             })
