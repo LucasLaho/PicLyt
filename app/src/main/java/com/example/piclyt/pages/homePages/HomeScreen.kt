@@ -7,6 +7,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -25,6 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 // Fonction principale de l'écran d'accueil
 @Composable
 fun HomeScreen(navController: NavController, context: Context, db: FirebaseFirestore, modifier: Modifier = Modifier) {
+    var username by remember { mutableStateOf("") }
     createBottomNavigation(navController, context, modifier, true, listMedias) // Affichage de la barre de navigation
 
     Box(
@@ -38,7 +43,10 @@ fun HomeScreen(navController: NavController, context: Context, db: FirebaseFires
                 .fillMaxWidth()
         ) {
             createHeaderText("Albums") // Affichage du titre
-            GreetingSection(getUsername(authManager, db)) // Affichage du message de bienvenue
+            getUsername(authManager, db) { resultUsername ->
+                username = resultUsername
+            }
+            GreetingSection(username) // Affichage du message de bienvenue
             AlbumSection(navController) // Affichage des albums sur la page d'accueil. Bug encore
         }
     }

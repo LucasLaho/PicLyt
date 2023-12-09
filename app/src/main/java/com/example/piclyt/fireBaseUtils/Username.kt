@@ -59,22 +59,27 @@ fun addUser(db: FirebaseFirestore, uid: String, user: Map<String, Any>, context:
 }
 
 // Fonction qui permet de récupérer le nom d'utilisateur de l'utilisateur connecté
-fun getUsername(authManager: AuthManager, db: FirebaseFirestore): String {
+fun getUsername(authManager: AuthManager, db: FirebaseFirestore, callback: (String) -> Unit) {
     val currentUser = authManager.getAuth.currentUser
     val uid = currentUser?.uid
-    var username = ""
     if(uid!=null) {
         db.collection("users")
             .document(uid)
             .get()
             .addOnSuccessListener { documentSnapshot ->
+                var username = ""
                 if (documentSnapshot.exists()) {
                     val temp = documentSnapshot.getString("username")
                     if (temp!=null) {
                         username = temp
                     }
                 }
+                callback(username)
             }
+            .addOnFailureListener {
+                callback("")
+            }
+    } else {
+        callback("")
     }
-    return username
 }
