@@ -92,7 +92,7 @@ fun RegistrationScreen(
             Spacer(modifier = Modifier.padding(top = 20.dp))
 
             Button(
-                onClick = { Registration(navController, context, authManager, emailText, passwordText) }, // Appel de la fonction d'inscription
+                onClick = { Registration(navController, context, emailText, passwordText) }, // Appel de la fonction d'inscription
                 modifier = Modifier.padding(top = 8.dp)
             ) {
                 Text("Suivant")

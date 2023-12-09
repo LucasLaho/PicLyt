@@ -22,9 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.piclyt.MainActivity.Companion.authManager
 import com.example.piclyt.R
-import com.example.piclyt.fireBaseUtils.AuthManager
 import com.example.piclyt.fireBaseUtils.Username
 import com.example.piclyt.utils.CreateLogo
 import com.example.piclyt.utils.CreateTextField
@@ -77,7 +75,7 @@ fun UsernameScreen(
             Spacer(modifier = Modifier.padding(top = 10.dp))
 
             Button(
-                onClick = { Username(navController, context, usernameText) }, // Appel de la fonction de sélection du nom d'utilisateur
+                onClick = { Username(navController, context, db, usernameText) }, // Appel de la fonction de sélection du nom d'utilisateur
                 modifier = Modifier.padding(top = 8.dp)
             ) {
                 Text("Valider")

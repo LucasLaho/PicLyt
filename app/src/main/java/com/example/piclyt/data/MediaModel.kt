@@ -33,4 +33,3 @@ class MediaModel : ViewModel() {
         _selectedImageUris = _selectedImageUris.filterNot { it == uri }
     }
 }
-

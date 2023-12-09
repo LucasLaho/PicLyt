@@ -227,7 +227,7 @@ fun createBottomNavigation(navController: NavController, context: Context, modif
                                     badge = {
                                         if (item.badgeCount != null) // Test de l'affichage du nombre dans la bulle possible ou pas
                                             Badge {
-                                                    Text(text = viewModel.selectedImageUris.size.toString())
+                                                Text(text = viewModel.selectedImageUris.size.toString())
                                             }
                                         else if (item.hasNews)
                                             Badge {}
@@ -291,7 +291,3 @@ fun createGoogleSignInButton(
         }
     }
 }
-
-
-
-

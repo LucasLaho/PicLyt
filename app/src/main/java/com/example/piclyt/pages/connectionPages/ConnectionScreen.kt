@@ -77,7 +77,7 @@ fun ConnectionScreen(navController: NavController, context: Context, db: Firebas
             ) {
                 Text("Connexion")
             } // Bouton de connexion
-            
+
             Spacer(modifier = Modifier.padding(10.dp))
 
             Text(text = " - OU -", fontWeight = FontWeight.Bold)

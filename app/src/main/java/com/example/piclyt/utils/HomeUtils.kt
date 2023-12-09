@@ -45,7 +45,7 @@ fun AlbumSection(navController: NavController) {
             Album("Famille", R.drawable.ic_launcher_foreground),
             Album("Mariage", R.drawable.ic_launcher_background),
             Album("Fêtes", R.drawable.ic_launcher_foreground),
-            )
+        )
     }
 
     LazyColumn(

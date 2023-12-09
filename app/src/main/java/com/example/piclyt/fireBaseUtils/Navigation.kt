@@ -20,7 +20,6 @@ import com.example.piclyt.pages.homePages.ShopScreen
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.example.piclyt.MainActivity.Companion.authManager
-import com.example.piclyt.MainActivity.Companion.db
 
 // ############################# Utilitaires pour la fonctionnalité de navigation ########################## //
 
@@ -32,6 +31,7 @@ fun PicLytNavHost(context: ComponentActivity) {
     val navController = rememberNavController()
     val currentUser = authManager.getAuth.currentUser
     var startDestination = "connection"
+    val db = Firebase.firestore
 
     if (currentUser != null)  // Test d'une possible connexion existante
         startDestination = "Home"
@@ -70,4 +70,3 @@ fun PicLytNavHost(context: ComponentActivity) {
         }
     }
 }
-
