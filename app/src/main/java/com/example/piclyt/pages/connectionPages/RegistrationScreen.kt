@@ -71,7 +71,7 @@ fun RegistrationScreen(navController: NavController, context: Context, modifier:
 
             Spacer(modifier = Modifier.padding(20.dp))
 
-            Text(text = "Veuillez saisir un mot de passe\n(> 6 caractères)",
+            Text(text = "Veuillez saisir un mot de passe\n(>= 6 caractères)",
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
             )

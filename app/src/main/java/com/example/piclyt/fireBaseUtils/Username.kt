@@ -64,7 +64,7 @@ fun getUsername(authManager: AuthManager, db: FirebaseFirestore): String {
     val uid = currentUser?.uid
     var username = ""
     if(uid!=null) {
-        db.collection("usernames")
+        db.collection("users")
             .document(uid)
             .get()
             .addOnSuccessListener { documentSnapshot ->

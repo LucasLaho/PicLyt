@@ -31,7 +31,7 @@ fun testDataFields(context: Context, emailText: String, passwordText: String): B
 }
 
 fun isUsernameAvailable(db: FirebaseFirestore, usernameText: String, callback: (Boolean) -> Unit) {
-    db.collection("usernames")
+    db.collection("users")
         .whereEqualTo("username", usernameText)
         .get()
         .addOnSuccessListener { querySnapshot ->
