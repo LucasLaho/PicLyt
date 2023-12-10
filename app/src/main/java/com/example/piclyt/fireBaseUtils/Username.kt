@@ -21,7 +21,6 @@ fun Username(navController: NavController, context: Context, db: FirebaseFiresto
     if(uid!=null) {
 
         isUsernameAvailable(db, usernameText) { isAvailable ->
-
             if (isAvailable && addUser(db, uid, user, context)) {
 
                 // Message de bienvenue et navigation à la homepage
@@ -44,6 +43,22 @@ fun addUser(db: FirebaseFirestore, uid: String, user: Map<String, Any>, context:
 
         // Ajoute le nouvel utilisateur
         db.collection("users").document(uid).set(user)
+            .addOnSuccessListener {}
+            .addOnFailureListener {
+                // Message d'erreur
+                Toast.makeText(context, "Erreur de connexion à la base de données", Toast.LENGTH_SHORT).show()
+            }
+
+        // Crée la liste d'amis du nouvel utilisateur
+        db.collection(uid+"friendslist").document(uid).set(user)
+            .addOnSuccessListener {}
+            .addOnFailureListener {
+                // Message d'erreur
+                Toast.makeText(context, "Erreur de connexion à la base de données", Toast.LENGTH_SHORT).show()
+            }
+
+        // Crée la liste de requêtes d'ami du nouvel utilisateur
+        db.collection(uid+"friendrequestslist").document(uid).set(user)
             .addOnSuccessListener {}
             .addOnFailureListener {
                 // Message d'erreur

@@ -17,7 +17,7 @@ fun Connection(navController: NavController, context: Context, emailText: String
         authManager.getAuth.signInWithEmailAndPassword(emailText, passwordText)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) { // Cas 1 : Connexion réussie
-                    Toast.makeText(context, "Bienvenue à vous !", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Bienvenue !", Toast.LENGTH_SHORT).show()
                     navController.navigate("Home") {
                         popUpTo("connection") { inclusive = true } // Suppression de l'historique de navigation
                     }
