@@ -117,7 +117,7 @@ fun GreetingSection(
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Bonjour, $name",
+                text = "Bonjour, $name !",
                 style = MaterialTheme.typography.titleMedium
             )
             Text(
