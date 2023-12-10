@@ -18,13 +18,11 @@ import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Group
@@ -59,9 +57,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.piclyt.MainActivity.Companion.listMedias
 import com.example.piclyt.R
-import com.example.piclyt.data.MediaModel
 import com.example.piclyt.fireBaseUtils.AuthManager
 
 // Utilité : Ici, on retrouve toutes les fonctions de créations de composants pour toutes les pages de l'application !
@@ -234,7 +230,7 @@ fun createBottomNavigation(navController: NavController, context: Context, modif
                                     badge = {
                                         if (item.badgeCount != null) // Test de l'affichage du nombre dans la bulle possible ou pas
                                             Badge {
-                                                Text(text = listMedias.selectedImageUris.size.toString())
+                                                Text(text = "O0")
                                             }
                                         else if (item.hasNews)
                                             Badge {}
