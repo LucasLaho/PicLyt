@@ -288,7 +288,7 @@ fun AddFriendPopup(
                     modifier = Modifier
                         .fillMaxWidth()
                 ) {
-                    Text("Add")
+                    Text("Ajouter")
                 }
                 Spacer(modifier = Modifier.padding(top = 40.dp))
                 Text(text = "Demandes d'ami", fontSize = 17.sp)
