@@ -65,6 +65,14 @@ fun addUser(db: FirebaseFirestore, uid: String, user: Map<String, Any>, context:
                 Toast.makeText(context, "Erreur de connexion à la base de données", Toast.LENGTH_SHORT).show()
             }
 
+        // Crée la liste des albums du nouvel utilisateur
+        db.collection(uid+"albums").document(uid).set(user)
+            .addOnSuccessListener {}
+            .addOnFailureListener {
+                // Message d'erreur
+                Toast.makeText(context, "Erreur de connexion à la base de données", Toast.LENGTH_SHORT).show()
+            }
+
         return true // La tentative d'ajout a réussi
     } catch (e: Exception) {
         // En cas d'erreur inattendue

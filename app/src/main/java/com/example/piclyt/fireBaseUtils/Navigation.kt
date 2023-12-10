@@ -27,6 +27,7 @@ import com.google.firebase.ktx.Firebase
 import com.example.piclyt.MainActivity.Companion.authManager
 import com.example.piclyt.pages.annexePages.AlbumScreen
 import com.example.piclyt.pages.annexePages.BlankScreen
+import com.google.firebase.storage.ktx.storage
 
 // ############################# Utilitaires pour la fonctionnalité de navigation ########################## //
 
@@ -38,6 +39,7 @@ fun PicLytNavHost(context: ComponentActivity) {
     val navController = rememberNavController()
     val currentUser = authManager.getAuth.currentUser
     val db = Firebase.firestore
+    val storage = Firebase.storage
 
     /*// Test d'une possible connexion existante
     getUsername(authManager, db) {username ->
