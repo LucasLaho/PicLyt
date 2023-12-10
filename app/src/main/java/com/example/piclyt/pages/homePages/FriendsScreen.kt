@@ -39,9 +39,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.piclyt.MainActivity
 import com.example.piclyt.MainActivity.Companion.authManager
-import com.example.piclyt.MainActivity.Companion.listMedias
 import com.example.piclyt.fireBaseUtils.acceptFriendRequest
 import com.example.piclyt.fireBaseUtils.addFriend
 import com.example.piclyt.fireBaseUtils.deleteFriend
@@ -62,8 +60,7 @@ fun FriendsScreen(navController: NavController, context: Context, db: FirebaseFi
             navController,
             context,
             modifier,
-            true,
-            listMedias
+            true
         ) // Affichage de la barre de navigation
 
         Box(

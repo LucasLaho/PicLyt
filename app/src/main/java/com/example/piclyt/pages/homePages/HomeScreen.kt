@@ -30,7 +30,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 @Composable
 fun HomeScreen(navController: NavController, context: Context, db: FirebaseFirestore, modifier: Modifier = Modifier) {
     var username by remember { mutableStateOf("") }
-    createBottomNavigation(navController, context, modifier, true, listMedias) // Affichage de la barre de navigation
+    createBottomNavigation(navController, context, modifier, true) // Affichage de la barre de navigation
 
     Box(
         modifier = Modifier

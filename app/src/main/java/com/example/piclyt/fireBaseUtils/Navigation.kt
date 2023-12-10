@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.piclyt.pages.annexePages.ModifyProfileScreen
+import com.example.piclyt.pages.annexePages.SetProfileScreen
 import com.example.piclyt.pages.homePages.AddScreen
 import com.example.piclyt.pages.homePages.HomeScreen
 import com.example.piclyt.pages.connectionPages.ConnectionScreen
@@ -25,6 +25,7 @@ import com.example.piclyt.pages.homePages.ShopScreen
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.example.piclyt.MainActivity.Companion.authManager
+import com.example.piclyt.pages.annexePages.AlbumScreen
 
 // ############################# Utilitaires pour la fonctionnalité de navigation ########################## //
 
@@ -35,7 +36,6 @@ fun PicLytNavHost(context: ComponentActivity) {
     // Initialisation des composants de session à transférer à chaque page
     val navController = rememberNavController()
     val currentUser = authManager.getAuth.currentUser
-    //var startDestination = "connection" // L'écran de connexion est défini comme étant l'écran de départ
     val db = Firebase.firestore
 
     /*// Test d'une possible connexion existante
@@ -49,7 +49,7 @@ fun PicLytNavHost(context: ComponentActivity) {
     }*/
 
     // State to store the start destination
-    var startDestination by remember { mutableStateOf("connection") }
+    var startDestination by remember { mutableStateOf("connection") } // L'écran de connexion est défini comme étant l'écran de départ
 
     // Asynchronous side effect to check for a possible existing connection
     LaunchedEffect(Unit) {
@@ -66,6 +66,8 @@ fun PicLytNavHost(context: ComponentActivity) {
 
     // Liste des navigations possibles dans l'application
     NavHost(navController = navController, startDestination) {
+
+        // ############# Connection / Inscription pages #################### //
         composable("connection") { // Vers la page de connexion
             ConnectionScreen(navController = navController, context.applicationContext, db, modifier = Modifier.fillMaxSize())
         }
@@ -75,14 +77,13 @@ fun PicLytNavHost(context: ComponentActivity) {
         composable("Username") {// Vers la page de choix de nom d'utilisateur
             UsernameScreen(navController = navController, context.applicationContext, db, modifier = Modifier.fillMaxSize())
         }
+
+        // ############## Main pages after connection ####################### //
         composable("Home") {// Vers la page d'accueil/liste des albums
             HomeScreen(navController = navController, context.applicationContext, db, modifier = Modifier.fillMaxSize())
         }
         composable("Profile") {// Vers la page de profil
             ProfileScreen(navController = navController, context.applicationContext, db, modifier = Modifier.fillMaxSize())
-        }
-        composable("ModifyProfile") {// Vers la page de profil
-            ModifyProfileScreen(navController = navController, context.applicationContext, modifier = Modifier.fillMaxSize())
         }
         composable("Friends") {// Vers la page d'Amis
             FriendsScreen(navController = navController, context.applicationContext, db, modifier = Modifier.fillMaxSize())
@@ -90,11 +91,19 @@ fun PicLytNavHost(context: ComponentActivity) {
         composable("Add") {// Vers la page d'ajout d'album
             AddScreen(navController = navController, context.applicationContext, modifier = Modifier.fillMaxSize())
         }
+        composable("Shop") {// Vers la page de boutique
+            ShopScreen(navController = navController, context.applicationContext, modifier = Modifier.fillMaxSize())
+        }
+
+        // ############## Annexe pages from main pages ####################### //
         composable("Settings") {// Vers la page de paramètres
             SettingsScreen(navController = navController, context.applicationContext, modifier = Modifier.fillMaxSize())
         }
-        composable("Shop") {// Vers la page de boutique
-            ShopScreen(navController = navController, context.applicationContext, modifier = Modifier.fillMaxSize())
+        composable("ModifyProfile") {// Vers la page de profil
+            SetProfileScreen(navController = navController, context.applicationContext, modifier = Modifier.fillMaxSize())
+        }
+        composable("Album") {// Vers la page d'album
+            AlbumScreen(navController = navController, context.applicationContext, db, modifier = Modifier.fillMaxSize())
         }
     }
 }

@@ -19,9 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.piclyt.MainActivity.Companion.listMedias
 import com.example.piclyt.utils.createBottomNavigation
-import com.example.piclyt.utils.createHeaderText
 
 // ########################## Ecran de Boutique ######################### //
 // Utilité : Elle sera simple au possbile et accordera des avantages à l'utilisateur définis dans le WIKI
@@ -34,8 +32,7 @@ fun ShopScreen(navController: NavController, context: Context, modifier: Modifie
             navController,
             context,
             modifier,
-            true,
-            listMedias
+            true
         ) // Affichage de la barre de navigation
 
         Box(

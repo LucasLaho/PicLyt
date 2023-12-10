@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.piclyt.MainActivity.Companion.authManager
-import com.example.piclyt.MainActivity.Companion.listMedias
 import com.example.piclyt.R
 import com.example.piclyt.fireBaseUtils.getUsername
 import com.example.piclyt.utils.UserProfile
@@ -43,8 +42,7 @@ fun ProfileScreen(navController: NavController, context: Context, db: FirebaseFi
             navController,
             context,
             modifier,
-            true,
-            listMedias
+            true
         ) // Affichage de la barre de navigation
         getUsername(authManager, db) { resultUsername ->
             username = resultUsername

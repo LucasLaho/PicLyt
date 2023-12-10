@@ -59,6 +59,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.piclyt.MainActivity.Companion.listMedias
 import com.example.piclyt.R
 import com.example.piclyt.data.MediaModel
 import com.example.piclyt.fireBaseUtils.AuthManager
@@ -165,7 +166,7 @@ data class BottomNavigationItem (
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun createBottomNavigation(navController: NavController, context: Context, modifier: Modifier = Modifier, isSelected:Boolean, viewModel: MediaModel) {
+fun createBottomNavigation(navController: NavController, context: Context, modifier: Modifier = Modifier, isSelected:Boolean) {
 
     // Liste des éléments de la navigation
     val items = listOf(
@@ -233,7 +234,7 @@ fun createBottomNavigation(navController: NavController, context: Context, modif
                                     badge = {
                                         if (item.badgeCount != null) // Test de l'affichage du nombre dans la bulle possible ou pas
                                             Badge {
-                                                Text(text = viewModel.selectedImageUris.size.toString())
+                                                Text(text = listMedias.selectedImageUris.size.toString())
                                             }
                                         else if (item.hasNews)
                                             Badge {}

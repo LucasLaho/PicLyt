@@ -35,16 +35,19 @@ import com.example.piclyt.R
 
 // ############################# Liste des fonctions de la page d'accueil ########################## //
 
+// Modèle de données pour un album
+data class Album(val name: String, val imageResource: Int, val isOpen : Boolean)
+
 // Fonction pour afficher les albums photo
 @Composable
 fun AlbumSection(navController: NavController) {
     // Récupérer la liste des albums depuis Firebase (Ne le fais pas actuellement. A DEV !!!)
     val albums = remember {
         listOf(
-            Album("Vacances", R.drawable.ic_launcher_background),
-            Album("Famille", R.drawable.ic_google),
-            Album("Mariage", R.drawable.ic_launcher_background),
-            Album("Fêtes", R.drawable.ic_facebook),
+            Album("Vacances", R.drawable.ic_launcher_background, false),
+            Album("Famille", R.drawable.ic_google, false),
+            Album("Mariage", R.drawable.ic_launcher_background, false),
+            Album("Fêtes", R.drawable.ic_facebook, false),
         )
     }
 
@@ -55,7 +58,7 @@ fun AlbumSection(navController: NavController) {
     ) {
         items(albums) { album ->
             AlbumItem(album = album, onClick = {
-                Unit // Code pour lorsque on clique sur un album
+                navController.navigate("Album")
             })
         }
     }
@@ -96,9 +99,6 @@ fun AlbumItem(album: Album, onClick: () -> Unit) {
         )
     }
 }
-
-// Modèle de données pour un album
-data class Album(val name: String, val imageResource: Int)
 
 // Fonction pour afficher un message de bienvenu
 @Composable

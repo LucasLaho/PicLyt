@@ -17,8 +17,6 @@ class AuthManager(private val activity: ComponentActivity) {
     private val RC_SIGN_IN = 100
     private var googleSignInClient: GoogleSignInClient
     private var auth: FirebaseAuth
-    private lateinit var emailText : String
-    private lateinit var passwordText : String
 
     init {
         // Configure Google SignIn and FirebaseAuth here
@@ -33,12 +31,6 @@ class AuthManager(private val activity: ComponentActivity) {
 
     val getAuth: FirebaseAuth
         get() = FirebaseAuth.getInstance()
-
-    val getEmailText: String
-        get() = emailText
-
-    val getPasswordText: String
-        get() = passwordText
 
     fun signIn() : Boolean {
         var connected = false
@@ -102,10 +94,5 @@ class AuthManager(private val activity: ComponentActivity) {
             .addOnFailureListener {
                 Toast.makeText(activity, "Sign Out Failed", Toast.LENGTH_SHORT).show()
             }
-    }
-
-    fun initLogin(emailText : String, passwordText : String){
-        this.emailText = emailText
-        this.passwordText = passwordText
     }
 }
