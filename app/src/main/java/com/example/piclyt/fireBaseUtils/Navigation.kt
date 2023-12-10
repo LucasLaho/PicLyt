@@ -51,7 +51,7 @@ fun PicLytNavHost(context: ComponentActivity) {
             HomeScreen(navController = navController, context.applicationContext, db, modifier = Modifier.fillMaxSize())
         }
         composable("Profile") {// Vers la page de profil
-            ProfileScreen(navController = navController, context.applicationContext, modifier = Modifier.fillMaxSize())
+            ProfileScreen(navController = navController, context.applicationContext, db, modifier = Modifier.fillMaxSize())
         }
         composable("ModifyProfile") {// Vers la page de profil
             ModifyProfileScreen(navController = navController, context.applicationContext, modifier = Modifier.fillMaxSize())
