@@ -35,6 +35,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.piclyt.fireBaseUtils.AuthManager
@@ -77,6 +78,7 @@ fun UserProfilePage(userProfile: UserProfile, navController: NavController, cont
                 Text(
                     text = userProfile.username,
                     style = MaterialTheme.typography.headlineLarge,
+                    fontSize = 20.sp,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
             }

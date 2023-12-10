@@ -36,7 +36,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 fun UsernameScreen(navController: NavController, context: Context, db: FirebaseFirestore, modifier: Modifier = Modifier) {
 
     Surface(modifier, color = MaterialTheme.colorScheme.background) {
-        Box(modifier = Modifier.padding(bottom = 500.dp), contentAlignment = Alignment.TopCenter) {
+        Box(modifier = Modifier.padding(bottom = 0.dp), contentAlignment = Alignment.TopCenter) {
             CreateLogo(
                 painter = painterResource(id = R.mipmap.ic_launcher_foreground),
                 contentDescription = "Logo"
@@ -45,23 +45,24 @@ fun UsernameScreen(navController: NavController, context: Context, db: FirebaseF
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(30.dp)
         ) {
 
-            Spacer(modifier = Modifier.padding(10.dp))
+            Spacer(modifier = Modifier.padding(30.dp))
 
-            createHeaderText("INSCRIPTION") // Affichage du titre de la page
+            createHeaderText("Choix du nom d'utilisateur") // Affichage du titre de la page
 
             Spacer(modifier = Modifier.padding(top = 10.dp))
 
-            Text(text = "Veuillez saisir un nom d'utilisateur",
+            /*Text(text = "Veuillez saisir un nom d'utilisateur",
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
             )
 
-            Spacer(modifier = Modifier.padding(top = 10.dp))
+            Spacer(modifier = Modifier.padding(top = 10.dp))*/
 
             var usernameText by rememberSaveable { mutableStateOf("") }
+
             CreateTextField(
                 label = "Nom d'utilisateur",
                 onValueChange = { usernameText = it },
@@ -76,14 +77,14 @@ fun UsernameScreen(navController: NavController, context: Context, db: FirebaseF
                 Text("Valider")
             } // Bouton permettant de valider le nom d'utilisateur
 
-            Spacer(modifier = Modifier.padding(top = 30.dp))
+            /*Spacer(modifier = Modifier.padding(top = 30.dp))
 
             Button(
                 onClick = { navController.navigate("registration") }, // Retour à la page d'inscription
                 modifier = Modifier.padding(top = 8.dp)
             ) {
                 Text("Retour")
-            } // Bouton permettant de retourner en arrière
+            } // Bouton permettant de retourner en arrière*/
         }
     }
 }

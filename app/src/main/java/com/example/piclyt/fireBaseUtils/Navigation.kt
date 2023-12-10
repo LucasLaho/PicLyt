@@ -3,6 +3,11 @@ package com.example.piclyt.fireBaseUtils
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -30,16 +35,39 @@ fun PicLytNavHost(context: ComponentActivity) {
     // Initialisation des composants de session à transférer à chaque page
     val navController = rememberNavController()
     val currentUser = authManager.getAuth.currentUser
-    var startDestination = "connection"
+    //var startDestination = "connection" // L'écran de connexion est défini comme étant l'écran de départ
     val db = Firebase.firestore
 
-    if (currentUser != null)  // Test d'une possible connexion existante
-        startDestination = "Home"
+    /*// Test d'une possible connexion existante
+    getUsername(authManager, db) {username ->
+        if (currentUser != null) {
+            if(username=="") {
+                startDestination = "Username" // Si username non défini, redirection vers usernamescreen
+            }
+            else startDestination = "Home" // Sinon redirection vers homepage
+        }
+    }*/
+
+    // State to store the start destination
+    var startDestination by remember { mutableStateOf("connection") }
+
+    // Asynchronous side effect to check for a possible existing connection
+    LaunchedEffect(Unit) {
+        getUsername(authManager, db) { username ->
+            if (currentUser != null) {
+                startDestination = if (username == "") {
+                    "Username"
+                } else {
+                    "Home"
+                }
+            }
+        }
+    }
 
     // Liste des navigations possibles dans l'application
     NavHost(navController = navController, startDestination) {
         composable("connection") { // Vers la page de connexion
-            ConnectionScreen(navController = navController, context.applicationContext, modifier = Modifier.fillMaxSize())
+            ConnectionScreen(navController = navController, context.applicationContext, db, modifier = Modifier.fillMaxSize())
         }
         composable("registration") {// Vers la page d'inscription
             RegistrationScreen(navController = navController, context.applicationContext, modifier = Modifier.fillMaxSize())

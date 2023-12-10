@@ -184,7 +184,7 @@ fun createBottomNavigation(navController: NavController, context: Context, modif
             selectedIcon = Icons.Filled.Group,
             unselectedIcon = Icons.Outlined.Group,
             hasNews = false,
-            badgeCount = 0
+            //badgeCount = 0
         ),
         BottomNavigationItem (
             title = "Ajouter",
@@ -200,7 +200,7 @@ fun createBottomNavigation(navController: NavController, context: Context, modif
             sublist = listOf(""),
             selectedIcon = Icons.Filled.ShoppingCart,
             unselectedIcon = Icons.Outlined.ShoppingCart,
-            hasNews = true,
+            hasNews = false,
         ),
         BottomNavigationItem (
             title = "Profil",
@@ -208,7 +208,7 @@ fun createBottomNavigation(navController: NavController, context: Context, modif
             sublist = listOf("Settings"),
             selectedIcon = Icons.Filled.Person,
             unselectedIcon = Icons.Outlined.Person,
-            hasNews = true,
+            hasNews = false,
         )
     )
 
@@ -267,19 +267,18 @@ fun createGoogleSignInButton(
             }
         },
         modifier = Modifier
-            .height(55.dp)
-            .fillMaxWidth(),
+            .height(55.dp),
         shape = RoundedCornerShape(10.dp),
         border = BorderStroke(width = 1.5.dp, color = Color.Black),
         colors = ButtonDefaults.buttonColors(containerColor = Color.White)
     ) {
         Row(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
                 modifier = Modifier
-                    .padding(start = 15.dp)
+                    .padding(start = 2.dp)
                     .size(32.dp)
                     .padding(0.dp)
                     .align(Alignment.CenterVertically),
@@ -291,7 +290,7 @@ fun createGoogleSignInButton(
                     .padding(start = 20.dp)
                     .align(Alignment.CenterVertically),
                 text = "Connexion avec Google",
-                fontSize = MaterialTheme.typography.h6.fontSize,
+                fontSize = 15.sp,
                 color = Color.Black
             )
         }

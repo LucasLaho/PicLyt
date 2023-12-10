@@ -36,7 +36,7 @@ import com.example.piclyt.utils.createHeaderText
 fun RegistrationScreen(navController: NavController, context: Context, modifier: Modifier = Modifier) {
 
     Surface(modifier, color = MaterialTheme.colorScheme.background) {
-        Box(modifier = Modifier.padding(bottom = 550.dp), contentAlignment = Alignment.TopCenter) {
+        Box(modifier = Modifier.padding(0.dp), contentAlignment = Alignment.TopCenter) {
             CreateLogo(
                 painter = painterResource(id = R.mipmap.ic_launcher_foreground),
                 contentDescription = "Logo"
@@ -45,36 +45,36 @@ fun RegistrationScreen(navController: NavController, context: Context, modifier:
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(30.dp)
         ) {
 
-            Spacer(modifier = Modifier.padding(10.dp))
+            Spacer(modifier = Modifier.padding(30.dp))
 
-            createHeaderText("INSCRIPTION") // Affichage du titre de la page
+            createHeaderText("Inscription") // Affichage du titre de la page
 
             var emailText by rememberSaveable { mutableStateOf("") }
             var passwordText by rememberSaveable { mutableStateOf("") }
 
             Spacer(modifier = Modifier.padding(top = 10.dp))
 
-            Text(text = "Veuillez saisir une adresse mail valide",
+            /*Text(text = "Veuillez saisir une adresse mail valide",
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
             )
 
-            Spacer(modifier = Modifier.padding(top = 10.dp))
+            Spacer(modifier = Modifier.padding(top = 10.dp))*/
 
             CreateTextField(
                 label = "Adresse e-mail",
                 onValueChange = { emailText = it },
             ) // Champ pour saisir l'adresse email
 
-            Spacer(modifier = Modifier.padding(20.dp))
+            /*Spacer(modifier = Modifier.padding(20.dp))
 
             Text(text = "Veuillez saisir un mot de passe\n(>= 6 caractères)",
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
-            )
+            )*/
 
             Spacer(modifier = Modifier.padding(top = 10.dp))
 
@@ -92,12 +92,12 @@ fun RegistrationScreen(navController: NavController, context: Context, modifier:
                 Text("Suivant")
             } // Bouton permettant de s'inscrire
 
-            Button(
+            /*Button(
                 onClick = { navController.navigate("connection") }, // Retour à la page d'inscription
                 modifier = Modifier.padding(top = 8.dp)
             ) {
                 Text("Retour")
-            } // Bouton permettant de retourner en arrière
+            } // Bouton permettant de retourner en arrière*/
         }
     }
 }

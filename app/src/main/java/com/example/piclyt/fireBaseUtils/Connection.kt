@@ -7,19 +7,29 @@ import com.example.piclyt.MainActivity.Companion.authManager
 import com.example.piclyt.utils.testDataFields
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.google.firebase.firestore.FirebaseFirestore
 
 // ############################# Utilitaires pour la fonctionnalité de connexion ########################## //
 
 // Fonction permettant d'établir une connexion à Firebase depuis l'écran de connexion
-fun Connection(navController: NavController, context: Context, emailText: String, passwordText: String) {
+fun Connection(navController: NavController, context: Context, db: FirebaseFirestore, emailText: String, passwordText: String) {
 
     if (testDataFields(context, emailText, passwordText)) {
         authManager.getAuth.signInWithEmailAndPassword(emailText, passwordText)
             .addOnCompleteListener { task ->
-                if (task.isSuccessful) { // Cas 1 : Connexion réussie
-                    Toast.makeText(context, "Bienvenue !", Toast.LENGTH_SHORT).show()
-                    navController.navigate("Home") {
-                        popUpTo("connection") { inclusive = true } // Suppression de l'historique de navigation
+                if (task.isSuccessful) { // Connexion réussie
+                    getUsername(authManager, db) {username ->
+                        if(username==""){
+                            navController.navigate("Username") {
+                                popUpTo("connection") { inclusive = true } // Suppression de l'historique de navigation
+                            }
+                        }
+                        else {
+                            Toast.makeText(context, "Bienvenue !", Toast.LENGTH_SHORT).show()
+                            navController.navigate("Home") {
+                                popUpTo("connection") { inclusive = true } // Suppression de l'historique de navigation
+                            }
+                        }
                     }
                 } else {
                     // En cas d'echec de la connexion

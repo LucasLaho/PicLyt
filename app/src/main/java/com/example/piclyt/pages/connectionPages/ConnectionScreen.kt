@@ -35,9 +35,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 // Fonction principale de la page de connexion
 @Composable
-fun ConnectionScreen(navController: NavController, context: Context, modifier: Modifier = Modifier) {
+fun ConnectionScreen(navController: NavController, context: Context, db: FirebaseFirestore, modifier: Modifier = Modifier) {
+
     Surface(modifier, color = MaterialTheme.colorScheme.background) {
-        Box(modifier = Modifier.padding(bottom = 70.dp), contentAlignment = Alignment.TopCenter) { // Ajustez ici le padding pour déplacer le logo vers le haut
+        Box(modifier = Modifier.padding(0.dp), contentAlignment = Alignment.TopCenter) { // Ajustez ici le padding pour déplacer le logo vers le haut
             CreateLogo(
                 painter = painterResource(id = R.mipmap.ic_launcher_foreground),
                 contentDescription = "Logo"
@@ -49,9 +50,9 @@ fun ConnectionScreen(navController: NavController, context: Context, modifier: M
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.padding(30.dp)
         ) {
-            Spacer(modifier = Modifier.padding(top = 30.dp))
+            Spacer(modifier = Modifier.padding(30.dp))
 
-            createHeaderText("CONNEXION") /// Affichage du titre de la page
+            createHeaderText("Connexion") /// Affichage du titre de la page
 
             var emailText by rememberSaveable { mutableStateOf("") }
             var passwordText by rememberSaveable { mutableStateOf("") }
@@ -72,7 +73,7 @@ fun ConnectionScreen(navController: NavController, context: Context, modifier: M
             Spacer(modifier = Modifier.padding(top = 10.dp))
 
             Button(
-                onClick = { Connection(navController, context, emailText, passwordText) }, // Appel de la fonction de connexion
+                onClick = { Connection(navController, context, db, emailText, passwordText) }, // Appel de la fonction de connexion
                 modifier = Modifier.padding(top = 8.dp)
             ) {
                 Text("Connexion")
@@ -80,7 +81,7 @@ fun ConnectionScreen(navController: NavController, context: Context, modifier: M
 
             Spacer(modifier = Modifier.padding(10.dp))
 
-            Text(text = " - OU -", fontWeight = FontWeight.Bold)
+            Text(text = " - ou -", fontWeight = FontWeight.Bold)
 
             Spacer(modifier = Modifier.padding(10.dp))
 
