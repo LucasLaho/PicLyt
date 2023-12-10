@@ -21,7 +21,6 @@ fun Username(navController: NavController, context: Context, db: FirebaseFiresto
     if(uid!=null) {
 
         isUsernameAvailable(db, usernameText) { isAvailable ->
-
             if (isAvailable && addUser(db, uid, user, context)) {
 
                 // Message de bienvenue et navigation à la homepage
@@ -50,6 +49,22 @@ fun addUser(db: FirebaseFirestore, uid: String, user: Map<String, Any>, context:
                 Toast.makeText(context, "Erreur de connexion à la base de données", Toast.LENGTH_SHORT).show()
             }
 
+        // Crée la liste d'amis du nouvel utilisateur
+        db.collection(uid+"friendslist").document(uid).set(user)
+            .addOnSuccessListener {}
+            .addOnFailureListener {
+                // Message d'erreur
+                Toast.makeText(context, "Erreur de connexion à la base de données", Toast.LENGTH_SHORT).show()
+            }
+
+        // Crée la liste de requêtes d'ami du nouvel utilisateur
+        db.collection(uid+"friendrequestslist").document(uid).set(user)
+            .addOnSuccessListener {}
+            .addOnFailureListener {
+                // Message d'erreur
+                Toast.makeText(context, "Erreur de connexion à la base de données", Toast.LENGTH_SHORT).show()
+            }
+
         return true // La tentative d'ajout a réussi
     } catch (e: Exception) {
         // En cas d'erreur inattendue
@@ -59,22 +74,27 @@ fun addUser(db: FirebaseFirestore, uid: String, user: Map<String, Any>, context:
 }
 
 // Fonction qui permet de récupérer le nom d'utilisateur de l'utilisateur connecté
-fun getUsername(authManager: AuthManager, db: FirebaseFirestore): String {
+fun getUsername(authManager: AuthManager, db: FirebaseFirestore, callback: (String) -> Unit) {
     val currentUser = authManager.getAuth.currentUser
     val uid = currentUser?.uid
-    var username = ""
     if(uid!=null) {
         db.collection("users")
             .document(uid)
             .get()
             .addOnSuccessListener { documentSnapshot ->
+                var username = ""
                 if (documentSnapshot.exists()) {
                     val temp = documentSnapshot.getString("username")
                     if (temp!=null) {
                         username = temp
                     }
                 }
+                callback(username)
             }
+            .addOnFailureListener {
+                callback("")
+            }
+    } else {
+        callback("")
     }
-    return username
 }
