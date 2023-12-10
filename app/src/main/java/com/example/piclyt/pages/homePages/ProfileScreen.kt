@@ -5,7 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.piclyt.MainActivity.Companion.authManager
-import com.example.piclyt.MainActivity.Companion.listMedias
 import com.example.piclyt.R
 import com.example.piclyt.utils.UserProfile
 import com.example.piclyt.utils.UserProfilePage
@@ -16,7 +15,7 @@ import com.example.piclyt.utils.createBottomNavigation
 // Fonction principale de la page de profil regroupant toutes les infos d'une page de profil quelconque
 @Composable
 fun ProfileScreen(navController: NavController, context: Context, modifier: Modifier = Modifier) {
-    createBottomNavigation(navController, context, modifier, true, listMedias) // Affichage de la barre de navigation
+    createBottomNavigation(navController, context, modifier, true) // Affichage de la barre de navigation
 
     UserProfilePage(
         userProfile = UserProfile(

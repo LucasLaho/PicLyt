@@ -4,9 +4,9 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
@@ -31,8 +31,7 @@ fun PickImageFromGallery(viewModel: MediaModel) {
     LazyColumn{
         item {
             Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceAround
+                modifier = Modifier.fillMaxWidth().padding(),
             ) {
 
                 Button(onClick = {
@@ -40,7 +39,7 @@ fun PickImageFromGallery(viewModel: MediaModel) {
                         PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageAndVideo)
                     )
                 }) {
-                    Text(text = "Pick media from gallery")
+                    Text(text = "Pick media")
                 }
             }
         }
@@ -54,7 +53,6 @@ fun PickImageFromGallery(viewModel: MediaModel) {
                     .clickable { viewModel.removeSelectedImage(uri) }, // On supprime l'image si elle est touchée
                 contentScale = ContentScale.Crop,
             )
-
         }
     }
 }

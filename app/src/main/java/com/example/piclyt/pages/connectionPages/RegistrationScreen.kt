@@ -93,7 +93,7 @@ fun RegistrationScreen(navController: NavController, context: Context, modifier:
             } // Bouton permettant de s'inscrire
 
             Button(
-                onClick = { navController.navigate("connection") }, // Retour à la page d'inscription
+                onClick = { navController.popBackStack() }, // Retour à la page de connection
                 modifier = Modifier.padding(top = 8.dp)
             ) {
                 Text("Retour")

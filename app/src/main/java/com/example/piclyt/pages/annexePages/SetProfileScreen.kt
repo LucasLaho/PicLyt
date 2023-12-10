@@ -17,19 +17,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.piclyt.utils.ProfileCard
 
-// ########################## Ecran de paramètres ######################### //
+// ########################## Ecran de modification du profil ######################### //
 
-// Fonction principale de l'écran de paramètres
+// Fonction principale pour la modification du profil de l'utilisateur
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun SettingsScreen(navController: NavController, context: Context, modifier: Modifier = Modifier) {
+fun SetProfileScreen(navController: NavController, context: Context, modifier: Modifier = Modifier) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Settings") },
+                title = { Text(text = "Modifier le profil") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.Default.ArrowBack, contentDescription = null)
@@ -38,13 +37,12 @@ fun SettingsScreen(navController: NavController, context: Context, modifier: Mod
             )
         }
     ) {
+
         LazyColumn(
             content = {
                 // Espacement entre la top bar et les éléments
                 item { Spacer(modifier = Modifier.height(50.dp)) }
-                item { ProfileCard() }
             }
         )
     }
 }
-

@@ -79,7 +79,7 @@ fun UsernameScreen(navController: NavController, context: Context, db: FirebaseF
             Spacer(modifier = Modifier.padding(top = 30.dp))
 
             Button(
-                onClick = { navController.navigate("registration") }, // Retour à la page d'inscription
+                onClick = { navController.popBackStack() }, // Retour à la page d'inscription
                 modifier = Modifier.padding(top = 8.dp)
             ) {
                 Text("Retour")

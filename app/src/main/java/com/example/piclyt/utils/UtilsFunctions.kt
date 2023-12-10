@@ -4,7 +4,6 @@ import android.content.Context
 import android.text.TextUtils
 import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.tasks.await
 
 // Utilité : Ici, on retrouve toutes les fonctions et classes utiles pour toutes les pages au bon déroulement de l'application !
 // ############################# Listes des fonctions de tests ########################## //

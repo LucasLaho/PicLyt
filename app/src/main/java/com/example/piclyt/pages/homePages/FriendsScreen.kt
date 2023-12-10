@@ -11,8 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.piclyt.MainActivity.Companion.listMedias
-import com.example.piclyt.utils.PickImageFromGallery
 import com.example.piclyt.utils.createBottomNavigation
 import com.example.piclyt.utils.createHeaderText
 
@@ -22,7 +20,7 @@ import com.example.piclyt.utils.createHeaderText
 // Fonction principale de l'écran d'Amis où on retrouvera les albums publics de nos amis
 @Composable
 fun FriendsScreen(navController: NavController, context: Context, modifier: Modifier = Modifier) {
-    createBottomNavigation(navController, context, modifier, true, listMedias) // Affichage de la barre de navigation
+    createBottomNavigation(navController, context, modifier, true) // Affichage de la barre de navigation
 
     Box(
         modifier = Modifier
@@ -35,7 +33,6 @@ fun FriendsScreen(navController: NavController, context: Context, modifier: Modi
                 .fillMaxWidth()
         ) {
             createHeaderText("Amis") // Affichage du titre
-            PickImageFromGallery(listMedias)  // Bouton d'ajout d'une image depuis la galerie
         }
     }
 }
