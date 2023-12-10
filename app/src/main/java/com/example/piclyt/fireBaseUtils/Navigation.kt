@@ -26,6 +26,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.example.piclyt.MainActivity.Companion.authManager
 import com.example.piclyt.pages.annexePages.AlbumScreen
+import com.example.piclyt.pages.annexePages.BlankScreen
 
 // ############################# Utilitaires pour la fonctionnalité de navigation ########################## //
 
@@ -49,7 +50,7 @@ fun PicLytNavHost(context: ComponentActivity) {
     }*/
 
     // State to store the start destination
-    var startDestination by remember { mutableStateOf("connection") } // L'écran de connexion est défini comme étant l'écran de départ
+    var startDestination by remember { mutableStateOf("blank") }
 
     // Asynchronous side effect to check for a possible existing connection
     LaunchedEffect(Unit) {
@@ -60,6 +61,9 @@ fun PicLytNavHost(context: ComponentActivity) {
                 } else {
                     "Home"
                 }
+            }
+            else {
+                startDestination = "connection"
             }
         }
     }
@@ -104,6 +108,9 @@ fun PicLytNavHost(context: ComponentActivity) {
         }
         composable("Album") {// Vers la page d'album
             AlbumScreen(navController = navController, context.applicationContext, db, modifier = Modifier.fillMaxSize())
+        }
+        composable("blank") { // Vers la page de connexion
+            BlankScreen(modifier = Modifier.fillMaxSize())
         }
     }
 }
