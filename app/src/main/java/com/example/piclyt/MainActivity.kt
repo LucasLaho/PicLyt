@@ -11,7 +11,7 @@ import com.example.piclyt.ui.theme.PicLytTheme
 class MainActivity : ComponentActivity() {
     companion object {
         lateinit var authManager: AuthManager
-        val listMedias = MediaModel.getInstance() // Liste des images enregistrées par l'utilisateur tranférées à toutes les pages via la navigation
+        val listMedias = MediaModel.getInstance() // Liste des images enregistrées par l'utilisateur
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
