@@ -18,7 +18,6 @@ import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,26 +30,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.piclyt.R
+import com.example.piclyt.MainActivity.Companion.currentAlbum
+import com.example.piclyt.data.Album
 
 // ############################# Liste des fonctions de la page d'accueil ########################## //
 
-// Modèle de données pour un album
-data class Album(val name: String, val imageResource: Int, val isOpen : Boolean)
-
 // Fonction pour afficher les albums photo
 @Composable
-fun AlbumSection(navController: NavController) {
-    // Récupérer la liste des albums depuis Firebase (Ne le fais pas actuellement. A DEV !!!)
-    val albums = remember {
-        listOf(
-            Album("Vacances", R.drawable.ic_launcher_background, false),
-            Album("Famille", R.drawable.ic_google, false),
-            Album("Mariage", R.drawable.ic_launcher_background, false),
-            Album("Fêtes", R.drawable.ic_facebook, false),
-        )
-    }
-
+fun AlbumSection(navController: NavController, albums : List<Album>) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -58,6 +45,7 @@ fun AlbumSection(navController: NavController) {
     ) {
         items(albums) { album ->
             AlbumItem(album = album, onClick = {
+                currentAlbum = album
                 navController.navigate("Album")
             })
         }

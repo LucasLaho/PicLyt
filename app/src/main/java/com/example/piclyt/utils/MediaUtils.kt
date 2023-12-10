@@ -63,10 +63,10 @@ fun ConfirmDeleteDialog(onConfirm: () -> Unit, onCancel: () -> Unit) {
     AlertDialog(
         onDismissRequest = onCancel,
         title = {
-            Text(text = "ALERT")
+            Text(text = "Alerte")
         },
         text = {
-            Text(text = "Voulez-vous vraiment supprimer cette image?")
+            Text(text = "Voulez-vous vraiment supprimer cette image ?")
         },
         confirmButton = {
             Button(

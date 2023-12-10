@@ -31,7 +31,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.piclyt.MainActivity.Companion.listMedias
+import com.example.piclyt.MainActivity.Companion.currentAlbum
 import com.example.piclyt.utils.ConfirmDeleteDialog
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -42,7 +42,7 @@ fun AlbumScreen(navController: NavController, context: Context, db: FirebaseFire
 
     val multiplePhotoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickMultipleVisualMedia(),
-        onResult = { uris -> listMedias.updateSelectedImageUris(uris) }
+        onResult = { uris -> currentAlbum.updateSelectedImageUris(uris) }
     )
 
     var showDialog by remember { mutableStateOf(false) }
@@ -51,7 +51,7 @@ fun AlbumScreen(navController: NavController, context: Context, db: FirebaseFire
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Media") },
+                title = { Text(text = currentAlbum.name) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.Default.ArrowBack, contentDescription = null)
@@ -76,7 +76,7 @@ fun AlbumScreen(navController: NavController, context: Context, db: FirebaseFire
                 // Espacement entre la top bar et les éléments
                 item { Spacer(modifier = Modifier.height(50.dp)) }
 
-                items(listMedias.selectedImageUris) { uri ->
+                items(currentAlbum.selectedImageUris) { uri ->
                     AsyncImage(
                         model = uri,
                         contentDescription = null,
@@ -98,7 +98,7 @@ fun AlbumScreen(navController: NavController, context: Context, db: FirebaseFire
             ConfirmDeleteDialog(
                 onConfirm = {
                     // Supprimer l'image ici
-                    listMedias.removeSelectedImage(selectedImageUriToDelete!!) // !! pour éviter le null exception
+                    currentAlbum.removeSelectedImage(selectedImageUriToDelete!!) // !! pour éviter le null exception
                     showDialog = false
                     selectedImageUriToDelete = null
                 },
@@ -111,4 +111,3 @@ fun AlbumScreen(navController: NavController, context: Context, db: FirebaseFire
         }
     }
 }
-

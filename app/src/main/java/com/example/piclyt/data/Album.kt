@@ -4,13 +4,13 @@ import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
 
-// ############################# Listes des données partagées dans l'application ########################## //
-
-// Classe définissant une liste d'images ajoutées depuis la galerie
-class MediaModel : ViewModel() {
-
+// Modèle de données pour un album
+data class Album(
+    val name: String,
+    val imageResource: Int,
+    val isOpen : Boolean
+) {
     private var _selectedImageUris by mutableStateOf<List<Uri>>(emptyList())
     val selectedImageUris: List<Uri>
         get() = _selectedImageUris
