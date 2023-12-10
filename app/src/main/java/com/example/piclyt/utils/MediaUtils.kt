@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -55,4 +56,31 @@ fun PickImageFromGallery(viewModel: MediaModel) {
             )
         }
     }
+}
+
+@Composable
+fun ConfirmDeleteDialog(onConfirm: () -> Unit, onCancel: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onCancel,
+        title = {
+            Text(text = "ALERT")
+        },
+        text = {
+            Text(text = "Voulez-vous vraiment supprimer cette image?")
+        },
+        confirmButton = {
+            Button(
+                onClick = onConfirm
+            ) {
+                Text(text = "Oui")
+            }
+        },
+        dismissButton = {
+            Button(
+                onClick = onCancel
+            ) {
+                Text(text = "Annuler")
+            }
+        }
+    )
 }
