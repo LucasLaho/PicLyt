@@ -17,11 +17,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddPhotoAlternate
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.GroupAdd
-import androidx.compose.material.icons.filled.GroupRemove
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -42,28 +40,26 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.piclyt.MainActivity
-import com.example.piclyt.MainActivity.Companion.currentAlbum
+import com.example.piclyt.MainActivity.Companion.currentAlbumData
 import com.example.piclyt.fireBaseUtils.addFriendToAlbum
 import com.example.piclyt.fireBaseUtils.getFriendsList
-import com.example.piclyt.pages.homePages.FriendsListPopup
-import com.example.piclyt.pages.homePages.RemoveFriendPopup
 import com.example.piclyt.utils.ConfirmDeleteDialog
 import com.google.firebase.firestore.FirebaseFirestore
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "MutableCollectionMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlbumScreen(navController: NavController, context: Context, db: FirebaseFirestore, modifier: Modifier = Modifier) {
 
     val multiplePhotoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickMultipleVisualMedia(),
-        onResult = { uris -> currentAlbum.updateSelectedImageUris(uris) }
+        onResult = { uris -> currentAlbumData.updateSelectedImageUris(uris) }
     )
 
     var showDialog by remember { mutableStateOf(false) }
     var selectedImageUriToDelete by remember { mutableStateOf<Uri?>(null) }
     var isAddFriendPopupVisible by remember { mutableStateOf(false) }
-    var friendsList by remember { mutableStateOf(mutableListOf("")) }
+    val friendsList by remember { mutableStateOf(mutableListOf("")) }
 
     getFriendsList(MainActivity.authManager, db) { resultList ->
         friendsList.clear()
@@ -73,7 +69,7 @@ fun AlbumScreen(navController: NavController, context: Context, db: FirebaseFire
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = currentAlbum.name) },
+                title = { Text(text = currentAlbumData.name) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.Default.ArrowBack, contentDescription = null)
@@ -118,7 +114,7 @@ fun AlbumScreen(navController: NavController, context: Context, db: FirebaseFire
                 // Espacement entre la top bar et les éléments
                 item { Spacer(modifier = Modifier.height(50.dp)) }
 
-                items(currentAlbum.selectedImageUris) { uri ->
+                items(currentAlbumData.selectedImageUris) { uri ->
                     AsyncImage(
                         model = uri,
                         contentDescription = null,
@@ -140,7 +136,7 @@ fun AlbumScreen(navController: NavController, context: Context, db: FirebaseFire
             ConfirmDeleteDialog(
                 onConfirm = {
                     // Supprimer l'image ici
-                    currentAlbum.removeSelectedImage(selectedImageUriToDelete!!) // !! pour éviter le null exception
+                    currentAlbumData.removeSelectedImage(selectedImageUriToDelete!!) // "!!" pour éviter le null exception
                     showDialog = false
                     selectedImageUriToDelete = null
                 },
@@ -192,7 +188,7 @@ fun FriendItem(
         Text(text = "$username")
         IconButton(onClick = {
             val nomAlbum = "Vacances" //temporaire, à supprimer quand implémentation
-            addFriendToAlbum(context, db, nomAlbum, username){response ->
+            addFriendToAlbum(db, nomAlbum, username){response ->
                 Toast.makeText(context, response, Toast.LENGTH_SHORT).show()
             }
         }) {

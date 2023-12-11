@@ -16,17 +16,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.AsyncImage
-import com.example.piclyt.data.Album
+import com.example.piclyt.data.AlbumData
 
 // ############################# Liste des fonctions de la page d'ajout ########################## //
 
 // Fonctionnalité d'ajout de photo à partir du portable (NE FONCTIONNE PAS correctement !!!)
 @Composable
-fun PickImageFromGallery(album: Album) {
+fun PickImageFromGallery(albumData: AlbumData) {
 
     val multiplePhotoPickerLauncher = rememberLauncherForActivityResult (
         contract = ActivityResultContracts.PickMultipleVisualMedia(),
-        onResult = {uris -> album.updateSelectedImageUris(uris)}
+        onResult = {uris -> albumData.updateSelectedImageUris(uris)}
     )
 
     LazyColumn{
@@ -45,13 +45,13 @@ fun PickImageFromGallery(album: Album) {
             }
         }
 
-        items (album.selectedImageUris) { uri ->
+        items (albumData.selectedImageUris) { uri ->
             AsyncImage (
                 model = uri,
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { album.removeSelectedImage(uri) }, // On supprime l'image si elle est touchée
+                    .clickable { albumData.removeSelectedImage(uri) }, // On supprime l'image si elle est touchée
                 contentScale = ContentScale.Crop,
             )
         }

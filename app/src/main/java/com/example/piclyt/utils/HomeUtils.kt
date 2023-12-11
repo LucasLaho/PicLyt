@@ -24,28 +24,28 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.piclyt.MainActivity.Companion.currentAlbum
-import com.example.piclyt.data.Album
+import coil.compose.rememberImagePainter
+import com.example.piclyt.MainActivity.Companion.currentAlbumData
+import com.example.piclyt.data.AlbumData
 
 // ############################# Liste des fonctions de la page d'accueil ########################## //
 
 // Fonction pour afficher les albums photo
 @Composable
-fun AlbumSection(navController: NavController, albums : List<Album>) {
+fun AlbumSection(navController: NavController, albumData : List<AlbumData>) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        items(albums) { album ->
-            AlbumItem(album = album, onClick = {
-                currentAlbum = album
+        items(albumData) { album ->
+            AlbumItem(albumData = album, onClick = {
+                currentAlbumData = album
                 navController.navigate("Album")
             })
         }
@@ -54,15 +54,15 @@ fun AlbumSection(navController: NavController, albums : List<Album>) {
 
 // Composant pour représenter un album
 @Composable
-fun AlbumItem(album: Album, onClick: () -> Unit) {
+fun AlbumItem(albumData: AlbumData, onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = 16.dp)
     ) {
-        // Image de l'album
+
         Image(
-            painter = painterResource(id = album.imageResource),
+            painter = rememberImagePainter(albumData.imageResource), // Icone de l'album
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -74,9 +74,10 @@ fun AlbumItem(album: Album, onClick: () -> Unit) {
                 .shadow(4.dp)
         )
 
+
         // Titre de l'album
         Text(
-            text = album.name,
+            text = albumData.name,
             color = Color.White,
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,

@@ -3,32 +3,31 @@ package com.example.piclyt
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.example.piclyt.data.Album
+import com.example.piclyt.data.AlbumData
 import com.example.piclyt.fireBaseUtils.AuthManager
 import com.example.piclyt.fireBaseUtils.PicLytNavHost
 import com.example.piclyt.ui.theme.PicLytTheme
 
 class MainActivity : ComponentActivity() {
     companion object {
-        val listAlbums: MutableList<Album> = mutableListOf()
+        val listAlbumData: MutableList<AlbumData> = mutableListOf()
 
         lateinit var authManager: AuthManager
-        lateinit var currentAlbum: Album
+        lateinit var currentAlbumData: AlbumData
 
-        val album1: Album = Album("Vacances", R.drawable.ic_launcher_background)
-        val album2: Album = Album("Famille", R.drawable.ic_google)
-        val album3: Album = Album("Mariage", R.drawable.ic_launcher_background)
-        val album4: Album = Album("Fêtes", R.drawable.ic_facebook)
+        val albumData1: AlbumData = AlbumData("Vacances", R.drawable.ic_launcher_background, true)
+        val albumData2: AlbumData = AlbumData("Famille", R.drawable.ic_google, true)
+        val albumData3: AlbumData = AlbumData("Mariage", R.drawable.ic_launcher_background, true)
+        val albumData4: AlbumData = AlbumData("Fêtes", R.drawable.ic_facebook, true)
 
         init {
             // Initialisation des albums
-            listAlbums.add(album1)
-            listAlbums.add(album2)
-            listAlbums.add(album3)
-            listAlbums.add(album4)
+            listAlbumData.add(albumData1)
+            listAlbumData.add(albumData2)
+            listAlbumData.add(albumData3)
+            listAlbumData.add(albumData4)
         }
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

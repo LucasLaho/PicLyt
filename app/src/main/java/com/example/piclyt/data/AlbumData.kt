@@ -6,9 +6,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 
 // Modèle de données pour un album
-data class Album(
+data class AlbumData(
     val name: String,
-    val imageResource: Int
+    val imageResource: Any,
+    val isPublic : Boolean
 ) {
     private var _selectedImageUris by mutableStateOf<List<Uri>>(emptyList())
     val selectedImageUris: List<Uri>

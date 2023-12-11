@@ -1,7 +1,12 @@
 package com.example.piclyt.pages.homePages
 
 import android.content.Context
+import android.net.Uri
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,16 +15,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.AlertDialog
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,17 +30,15 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.compose.rememberImagePainter
 import com.example.piclyt.MainActivity
-import com.example.piclyt.MainActivity.Companion.listAlbums
-import com.example.piclyt.R
-import com.example.piclyt.data.Album
 import com.example.piclyt.fireBaseUtils.createAlbum
-import com.example.piclyt.fireBaseUtils.getFriendsList
 import com.example.piclyt.utils.CreateTextField
 import com.example.piclyt.utils.createBottomNavigation
 import com.google.firebase.firestore.FirebaseFirestore
@@ -47,6 +48,13 @@ import com.google.firebase.firestore.FirebaseFirestore
 // Fonction principale de la page d'ajout d'album
 @Composable
 fun AddScreen(navController: NavController, context: Context, db: FirebaseFirestore, modifier: Modifier = Modifier) {
+
+    var icon : Uri = Uri.EMPTY
+    val iconePicker = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.PickVisualMedia(),
+        onResult = { uri -> icon = uri!! }
+    )
+
     Surface(modifier, color = MaterialTheme.colorScheme.background) {
         createBottomNavigation(
             navController,
@@ -108,12 +116,26 @@ fun AddScreen(navController: NavController, context: Context, db: FirebaseFirest
 
                 // Bouton pour choisir une image comme icône de l'album
                 Button(
-                    onClick = { /* Action pour choisir une image */ },
+                    onClick = {
+                        iconePicker.launch(
+                            PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                        )
+                    },
                     modifier = Modifier
                         .padding(16.dp)
                 ) {
                     Text("Choisir une icône")
                 }
+
+                // Afficher l'image sélectionnée
+                Image(
+                    painter = rememberImagePainter(data = icon),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(100.dp) // Ajustez la taille selon vos besoins
+                        .padding(16.dp)
+                        .clip(CircleShape)
+                )
 
                 // Slider pour définir si l'album est public ou privé
                 Row (
@@ -159,16 +181,12 @@ fun AddScreen(navController: NavController, context: Context, db: FirebaseFirest
 
                 Spacer(modifier = Modifier.padding(top = 80.dp))
 
-                var test : Album = Album("test", R.drawable.ic_launcher_background)
                 // Bouton de création de l'album
                 Button(
                     onClick = {
-                        createAlbum(navController, context, db, modifier, nomAlbum, isPublic){response ->
+                        createAlbum(navController, db, nomAlbum, isPublic, icon){ response ->
                             Toast.makeText(context, response, Toast.LENGTH_SHORT).show()
                         }
-                        listAlbums.add(test)
-                        Toast.makeText(context, "Ajout du nouvel album : " + test.name, Toast.LENGTH_SHORT).show()
-                        navController.navigate("Home")
                     },
                     modifier = Modifier
                         .padding(16.dp)

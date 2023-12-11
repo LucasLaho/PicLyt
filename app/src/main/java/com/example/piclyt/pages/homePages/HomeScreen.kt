@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.piclyt.MainActivity.Companion.authManager
-import com.example.piclyt.MainActivity.Companion.listAlbums
+import com.example.piclyt.MainActivity.Companion.listAlbumData
 import com.example.piclyt.fireBaseUtils.getUsername
 import com.example.piclyt.utils.AlbumSection
 import com.example.piclyt.utils.GreetingSection
@@ -76,7 +76,7 @@ fun HomeScreen(navController: NavController, context: Context, db: FirebaseFires
                     username = resultUsername
                 }
                 GreetingSection(username) // Affichage du message de bienvenue
-                AlbumSection(navController, listAlbums) // Affichage des albums sur la page d'accueil
+                AlbumSection(navController, listAlbumData) // Affichage des albums sur la page d'accueil
             }
         }
     }
