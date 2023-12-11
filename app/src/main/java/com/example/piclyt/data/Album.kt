@@ -8,8 +8,7 @@ import androidx.compose.runtime.setValue
 // Modèle de données pour un album
 data class Album(
     val name: String,
-    val imageResource: Int,
-    val isOpen : Boolean
+    val imageResource: Int
 ) {
     private var _selectedImageUris by mutableStateOf<List<Uri>>(emptyList())
     val selectedImageUris: List<Uri>

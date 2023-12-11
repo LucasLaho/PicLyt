@@ -23,11 +23,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.piclyt.MainActivity.Companion.album1
-import com.example.piclyt.MainActivity.Companion.album2
-import com.example.piclyt.MainActivity.Companion.album3
-import com.example.piclyt.MainActivity.Companion.album4
 import com.example.piclyt.MainActivity.Companion.authManager
+import com.example.piclyt.MainActivity.Companion.listAlbums
 import com.example.piclyt.fireBaseUtils.getUsername
 import com.example.piclyt.utils.AlbumSection
 import com.example.piclyt.utils.GreetingSection
@@ -39,12 +36,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 // Fonction principale de l'écran d'accueil
 @Composable
 fun HomeScreen(navController: NavController, context: Context, db: FirebaseFirestore, modifier: Modifier = Modifier) {
-
-    val albums = remember {
-        listOf(
-            album1, album2, album3, album4
-        )
-    }
 
     Surface(modifier, color = MaterialTheme.colorScheme.background) {
         var username by remember { mutableStateOf("") }
@@ -85,7 +76,7 @@ fun HomeScreen(navController: NavController, context: Context, db: FirebaseFires
                     username = resultUsername
                 }
                 GreetingSection(username) // Affichage du message de bienvenue
-                AlbumSection(navController, albums) // Affichage des albums sur la page d'accueil
+                AlbumSection(navController, listAlbums) // Affichage des albums sur la page d'accueil
             }
         }
     }
