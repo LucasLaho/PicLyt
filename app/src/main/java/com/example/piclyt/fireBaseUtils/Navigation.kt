@@ -41,31 +41,21 @@ fun PicLytNavHost(context: ComponentActivity) {
     val db = Firebase.firestore
     val storage = Firebase.storage
 
-    /*// Test d'une possible connexion existante
-    getUsername(authManager, db) {username ->
-        if (currentUser != null) {
-            if(username=="") {
-                startDestination = "Username" // Si username non défini, redirection vers usernamescreen
-            }
-            else startDestination = "Home" // Sinon redirection vers homepage
-        }
-    }*/
-
-    // State to store the start destination
+    // Initialisation de la page blanche comme étant la page de départ en attendant le test
     var startDestination by remember { mutableStateOf("blank") }
 
-    // Asynchronous side effect to check for a possible existing connection
+    // Différents tests afin de sélectionner la page de départ
     LaunchedEffect(Unit) {
         getUsername(authManager, db) { username ->
-            if (currentUser != null) {
-                startDestination = if (username == "") {
-                    "Username"
+            if (currentUser != null) { // Si connecté
+                startDestination = if (username == "") { // Si username = ""
+                    "Username" // Page de départ = page de choix de username
                 } else {
-                    "Home"
+                    "Home" // Sinon, si connecté et username != "", direction homepage
                 }
             }
-            else {
-                startDestination = "connection"
+            else { // Si pas connecté
+                startDestination = "connection" // Direction page de connexion
             }
         }
     }
