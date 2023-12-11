@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -52,9 +53,11 @@ fun AddScreen(navController: NavController, context: Context, modifier: Modifier
                 .padding(bottom = 80.dp) // Ajustement de l'espace en fonction de la hauteur du BottomNavigation
         ) {
             Column(
+                modifier = Modifier
+                    .align(Alignment.TopStart)
+                    .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
-                modifier = Modifier.padding(30.dp)
             ) {
                 Row(
                     modifier = Modifier
@@ -73,6 +76,8 @@ fun AddScreen(navController: NavController, context: Context, modifier: Modifier
                     )
                 }
 
+                Spacer(modifier = Modifier.padding(top = 120.dp))
+
                 var nomAlbum by rememberSaveable { mutableStateOf("") }
                 CreateTextField(
                     label = "Nom de l'album",
@@ -83,7 +88,6 @@ fun AddScreen(navController: NavController, context: Context, modifier: Modifier
                 Button(
                     onClick = { /* Action pour choisir une image */ },
                     modifier = Modifier
-                        .fillMaxWidth()
                         .padding(16.dp)
                 ) {
                     Text("Choisir une icône")
@@ -105,6 +109,8 @@ fun AddScreen(navController: NavController, context: Context, modifier: Modifier
                         .padding(16.dp)
                 )
 
+                Spacer(modifier = Modifier.padding(top = 70.dp))
+
                 var test : Album = Album("test", R.drawable.ic_launcher_background)
                 // Bouton de création de l'album
                 Button(
@@ -114,7 +120,6 @@ fun AddScreen(navController: NavController, context: Context, modifier: Modifier
                         navController.navigate("Home")
                     },
                     modifier = Modifier
-                        .fillMaxWidth()
                         .padding(16.dp)
                 ) {
                     Text("Créer l'album")
