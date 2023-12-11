@@ -85,7 +85,7 @@ fun PicLytNavHost(context: ComponentActivity) {
             FriendsScreen(navController = navController, context.applicationContext, db, modifier = Modifier.fillMaxSize())
         }
         composable("Add") {// Vers la page d'ajout d'album
-            AddScreen(navController = navController, context.applicationContext, modifier = Modifier.fillMaxSize())
+            AddScreen(navController = navController, context.applicationContext, db, modifier = Modifier.fillMaxSize())
         }
         composable("Shop") {// Vers la page de boutique
             ShopScreen(navController = navController, context.applicationContext, modifier = Modifier.fillMaxSize())
